@@ -1,0 +1,31 @@
+include: package:very_good_analysis/analysis_options.yaml
+
+analyzer:
+  exclude:
+    - "**/*.g.dart"
+    - "**/*.freezed.dart"
+  errors:
+    invalid_annotation_target: ignore
+
+linter:
+  rules:
+    public_member_api_docs: false
+    lines_longer_than_80_chars: false
+    prefer_const_constructors: true
+    prefer_const_literals_to_create_immutables: true
+    avoid_print: true
+    sort_pub_dependencies: true
+    unawaited_futures: true
+    always_declare_return_types: true
+    prefer_final_locals: true
+    prefer_final_in_for_each: true
+    cascade_invocations: true
+    avoid_dynamic_calls: true
+    avoid_slow_async_io: true
+    cancel_subscriptions: true
+    close_sinks: true
+    literal_only_boolean_expressions: true
+    no_adjacent_strings_in_list: true
+    prefer_single_quotes: true
+    require_trailing_commas: true
+    use_super_parameters: true
