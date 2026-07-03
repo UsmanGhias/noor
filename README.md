@@ -2,7 +2,7 @@
 
 Islamic prayer companion built with Flutter — accurate prayer times, reliable alarms, accountability flows, Quran reminders, and spiritual tracking.
 
-**Live showcase:** static site in `site/` — deploy on Vercel with **Root Directory = `site`**, or via [GitHub Pages](https://usmanghias.github.io/noor-ul-haya/).
+**Live showcase:** `index.html` at repo root — works on Vercel (auto) and [GitHub Pages](https://usmanghias.github.io/noor/) (enable **Settings → Pages → Source: GitHub Actions**).
 
 **Version:** 1.0.0  
 **Architecture:** Clean Architecture + Feature First  
