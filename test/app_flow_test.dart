@@ -1,10 +1,9 @@
-import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_test/flutter_test.dart';
+import 'package:noor_ul_haya/app.dart';
 import 'package:noor_ul_haya/core/providers/prayer_providers.dart';
 import 'package:noor_ul_haya/core/services/app_bootstrap.dart';
-import 'package:noor_ul_haya/features/prayers/presentation/prayers_screen.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 void main() {
@@ -12,7 +11,7 @@ void main() {
 
   setUp(() async {
     AppBootstrap.resetForTest();
-    SharedPreferences.setMockInitialValues({'onboarding_complete': true});
+    SharedPreferences.setMockInitialValues({});
     TestDefaultBinaryMessengerBinding.instance.defaultBinaryMessenger
         .setMockMethodCallHandler(
       const MethodChannel('plugins.flutter.io/path_provider'),
@@ -33,27 +32,25 @@ void main() {
 
   tearDown(() {
     for (final channel in [
-      'flutter.baseflow.com/geolocator',
       'plugins.flutter.io/path_provider',
+      'flutter.baseflow.com/geolocator',
     ]) {
       TestDefaultBinaryMessengerBinding.instance.defaultBinaryMessenger
           .setMockMethodCallHandler(MethodChannel(channel), null);
     }
   });
 
-  testWidgets('Prayers dashboard renders schedule', (tester) async {
+  testWidgets('App launches splash branding', (tester) async {
     await tester.pumpWidget(
       ProviderScope(
         overrides: [
           sharedPreferencesProvider.overrideWithValue(AppBootstrap.preferences),
         ],
-        child: const MaterialApp(home: PrayersScreen()),
+        child: const NoorApp(),
       ),
     );
 
-    await tester.pump();
-    await tester.pump(const Duration(seconds: 2));
-
-    expect(find.text('Prayer Times'), findsOneWidget);
+    expect(find.text('Noor ul Haya'), findsOneWidget);
+    expect(find.text('Your daily prayer companion'), findsOneWidget);
   });
 }

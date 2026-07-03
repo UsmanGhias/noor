@@ -14,7 +14,6 @@ class NoorApp extends ConsumerWidget {
       title: kAppName,
       debugShowCheckedModeBanner: false,
       theme: AppTheme.light(),
-      darkTheme: AppTheme.dark(),
       routerConfig: appRouter,
     );
   }
