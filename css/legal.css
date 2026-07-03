@@ -1,0 +1,41 @@
+/* Legal & support pages */
+.legal-page { padding-top: calc(var(--nav-h) + 48px); padding-bottom: 80px; min-height: 100vh; position: relative; z-index: 1; }
+.legal-page .container { max-width: 780px; }
+.legal-page h1 {
+  font-family: var(--font-display); font-size: clamp(2rem, 4vw, 2.8rem);
+  font-weight: 600; margin-bottom: 8px; line-height: 1.15;
+}
+.legal-page .legal-meta { color: var(--text-dim); font-size: 0.85rem; margin-bottom: 32px; }
+.legal-page h2 {
+  font-size: 1.15rem; font-weight: 700; margin: 32px 0 12px;
+  color: var(--accent);
+}
+.legal-page p, .legal-page li { color: var(--text-muted); line-height: 1.8; margin-bottom: 14px; font-size: 0.95rem; }
+.legal-page ul { padding-left: 1.4rem; margin-bottom: 16px; }
+.legal-page a { color: var(--primary); text-decoration: underline; text-underline-offset: 3px; }
+.legal-page a:hover { color: var(--accent); }
+.legal-card {
+  padding: 24px; border-radius: var(--radius); background: var(--bg-card);
+  border: 1px solid var(--border); margin: 24px 0;
+}
+.legal-card strong { display: block; margin-bottom: 8px; color: var(--text); }
+.legal-nav {
+  display: flex; flex-wrap: wrap; gap: 10px; margin-bottom: 32px;
+}
+.legal-nav a {
+  padding: 8px 16px; border-radius: 999px; font-size: 0.8rem; font-weight: 600;
+  background: var(--bg-card); border: 1px solid var(--border); text-decoration: none; color: var(--text-muted);
+}
+.legal-nav a:hover, .legal-nav a.active { border-color: var(--primary); color: var(--primary); }
+
+.support-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 18px; margin: 28px 0; }
+.support-tile {
+  padding: 24px; border-radius: var(--radius-lg); background: var(--bg-card);
+  border: 1px solid var(--border); transition: border-color 0.3s;
+}
+.support-tile:hover { border-color: var(--primary); }
+.support-tile h3 { font-size: 1rem; margin-bottom: 8px; }
+.support-tile p { font-size: 0.88rem; margin-bottom: 12px; }
+.support-tile a { font-size: 0.85rem; font-weight: 600; }
+
+@media (max-width: 640px) { .support-grid { grid-template-columns: 1fr; } }

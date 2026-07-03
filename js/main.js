@@ -157,6 +157,26 @@
       scrollTrigger: { trigger: '.download__panel', start: 'top 85%' },
     });
 
+    gsap.from('.why__card', {
+      y: 40, opacity: 0, duration: 0.6, stagger: 0.1, ease: 'power2.out',
+      scrollTrigger: { trigger: '.why__grid', start: 'top 85%' },
+    });
+
+    gsap.from('.compare', {
+      y: 30, opacity: 0, duration: 0.7, ease: 'power2.out',
+      scrollTrigger: { trigger: '.compare', start: 'top 88%' },
+    });
+
+    gsap.from('.faq__item', {
+      y: 20, opacity: 0, duration: 0.5, stagger: 0.08, ease: 'power2.out',
+      scrollTrigger: { trigger: '.faq__list', start: 'top 85%' },
+    });
+
+    gsap.from('.tech__detail', {
+      scale: 0.9, opacity: 0, duration: 0.4, stagger: 0.08, ease: 'back.out(1.4)',
+      scrollTrigger: { trigger: '.tech__details', start: 'top 90%' },
+    });
+
     // Parallax hero mesh
     gsap.to('.hero__mesh', {
       y: -100,
