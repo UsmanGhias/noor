@@ -3,265 +3,198 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <meta name="description" content="Noor ul Haya — Your complete Islamic prayer companion. Accurate prayer times, Qibla compass, Quran, Duas, Tasbih, and smart alarms." />
-  <meta name="theme-color" content="#6B4EFF" />
-  <meta property="og:title" content="Noor ul Haya — Light of Life" />
-  <meta property="og:description" content="Islamic prayer companion with accurate times, alarms, Qibla, Quran, Duas & spiritual tools." />
-  <meta property="og:type" content="website" />
-  <title>Noor ul Haya — Light of Life</title>
-  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🌙</text></svg>" />
+  <meta name="description" content="Noor ul Haya — A luminous Islamic companion for prayer times, Qibla, Quran, Duas, Tasbih, and spiritual accountability." />
+  <meta name="theme-color" content="#0B0D17" />
+  <meta property="og:title" content="Noor ul Haya — نور الحياة" />
+  <meta property="og:description" content="Illuminate your worship with accurate prayer times, smart alarms, and sacred tools — crafted for the modern Muslim." />
+  <title>Noor ul Haya — نور الحياة</title>
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><defs><linearGradient id='g' x1='0%25' y1='0%25' x2='100%25' y2='100%25'><stop offset='0%25' stop-color='%236B4EFF'/><stop offset='100%25' stop-color='%231F8A70'/></linearGradient></defs><circle cx='50' cy='50' r='42' fill='url(%23g)'/><path d='M62 28a22 22 0 1 0 0 44 18 18 0 0 1 0-44z' fill='%230B0D17'/></svg>" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Amiri:ital,wght@0,400;0,700;1,400&family=Plus+Jakarta+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,400&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Amiri:ital,wght@0,400;0,700;1,400&family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400&family=Plus+Jakarta+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,400&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="css/styles.css" />
 </head>
 <body>
-  <div class="cursor-glow" aria-hidden="true"></div>
-  <canvas id="particles" aria-hidden="true"></canvas>
+  <div class="grain" aria-hidden="true"></div>
+  <div class="cursor" aria-hidden="true"></div>
+  <canvas id="stars" aria-hidden="true"></canvas>
 
-  <!-- Navigation -->
+  <svg class="geo-pattern" aria-hidden="true" xmlns="http://www.w3.org/2000/svg">
+    <defs>
+      <pattern id="islamic-geo" x="0" y="0" width="60" height="60" patternUnits="userSpaceOnUse">
+        <path d="M30 0 L60 30 L30 60 L0 30 Z" fill="none" stroke="currentColor" stroke-width="0.4" opacity="0.15"/>
+        <circle cx="30" cy="30" r="8" fill="none" stroke="currentColor" stroke-width="0.4" opacity="0.1"/>
+      </pattern>
+    </defs>
+    <rect width="100%" height="100%" fill="url(#islamic-geo)"/>
+  </svg>
+
   <header class="nav" id="nav">
-    <div class="nav__inner container">
+    <div class="container nav__inner">
       <a href="#" class="nav__brand">
-        <span class="nav__logo">🌙</span>
-        <span class="nav__name">Noor ul Haya</span>
+        <svg class="nav__logo-svg" viewBox="0 0 40 40" fill="none"><circle cx="20" cy="20" r="18" stroke="url(#logoGrad)" stroke-width="2"/><path d="M26 12a14 14 0 1 0 0 28 11 11 0 0 1 0-28z" fill="url(#logoGrad)"/><defs><linearGradient id="logoGrad" x1="0" y1="0" x2="40" y2="40"><stop stop-color="#8B72FF"/><stop offset="1" stop-color="#2EC4A0"/></linearGradient></defs></svg>
+        <div><strong>Noor ul Haya</strong><span>نور الحياة</span></div>
       </a>
-      <nav class="nav__links" aria-label="Main navigation">
+      <nav class="nav__links">
         <a href="#features">Features</a>
-        <a href="#showcase">Showcase</a>
-        <a href="#how-it-works">How It Works</a>
+        <a href="#screens">Screens</a>
+        <a href="#sacred">Sacred Library</a>
         <a href="#download">Download</a>
       </nav>
-      <a href="#download" class="btn btn--sm nav__cta">Get the App</a>
-      <button class="nav__toggle" id="navToggle" aria-label="Toggle menu" aria-expanded="false">
-        <span></span><span></span><span></span>
-      </button>
+      <a href="#download" class="btn btn--glow btn--sm">Get the App</a>
+      <button class="nav__burger" id="navBurger" aria-label="Menu"><span></span><span></span></button>
     </div>
-    <div class="nav__mobile" id="navMobile">
+    <div class="nav__drawer" id="navDrawer">
       <a href="#features">Features</a>
-      <a href="#showcase">Showcase</a>
-      <a href="#how-it-works">How It Works</a>
+      <a href="#screens">Screens</a>
+      <a href="#sacred">Sacred Library</a>
       <a href="#download">Download</a>
     </div>
   </header>
 
   <main>
-    <!-- Hero -->
+    <!-- HERO -->
     <section class="hero" id="hero">
-      <div class="hero__bg">
-        <div class="hero__orb hero__orb--1"></div>
-        <div class="hero__orb hero__orb--2"></div>
-        <div class="hero__orb hero__orb--3"></div>
-        <div class="hero__grid"></div>
-      </div>
-      <div class="container hero__content">
-        <div class="hero__text">
-          <div class="hero__badge reveal">
-            <span class="pulse-dot"></span>
-            Islamic Prayer Companion · v1.0
-          </div>
+      <div class="hero__mesh"></div>
+      <div class="hero__arc"></div>
+      <div class="container hero__grid">
+        <div class="hero__copy">
+          <div class="eyebrow reveal"><span class="eyebrow__dot"></span> Islamic Prayer Companion · Android</div>
           <h1 class="hero__title reveal">
-            Illuminate your<br />
-            <span class="gradient-text">daily worship</span>
+            <span class="hero__title-line">Light for your</span>
+            <span class="hero__title-line hero__title-accent">sacred rhythm</span>
           </h1>
-          <p class="hero__arabic reveal" dir="rtl">نور الحياة</p>
-          <p class="hero__subtitle reveal">
-            Accurate prayer times, reliable alarms, Qibla direction, Quran, Duas, and Tasbih — 
-            everything you need to stay connected with your faith, beautifully crafted for Android.
+          <p class="hero__arabic reveal" dir="rtl">وَأَقِمِ الصَّلَاةَ لِذِكْرِي</p>
+          <p class="hero__verse reveal"><em>"And establish prayer for My remembrance."</em> — Quran 20:14</p>
+          <p class="hero__desc reveal">
+            Noor ul Haya unites precise Adhan-based prayer times, per-salah alarms, Qibla guidance,
+            Quran, authentic Duas, and a digital Tasbih — wrapped in a serene Material 3 experience
+            built to honour your daily ibadah.
           </p>
-          <div class="hero__actions reveal">
-            <a href="#download" class="btn btn--primary">
+          <div class="hero__cta reveal">
+            <a href="#download" class="btn btn--glow btn--lg">
               <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
-              Download APK
+              Download Free
             </a>
-            <a href="#features" class="btn btn--ghost">Explore Features</a>
+            <a href="#screens" class="btn btn--glass btn--lg">Tour the App</a>
           </div>
-          <div class="hero__stats reveal">
-            <div class="stat">
-              <span class="stat__num" data-count="5">0</span>
-              <span class="stat__label">Daily Prayers</span>
-            </div>
-            <div class="stat__divider"></div>
-            <div class="stat">
-              <span class="stat__num" data-count="7">0</span>
-              <span class="stat__label">Core Modules</span>
-            </div>
-            <div class="stat__divider"></div>
-            <div class="stat">
-              <span class="stat__num" data-count="100">0</span>
-              <span class="stat__suffix">%</span>
-              <span class="stat__label">Offline Ready</span>
-            </div>
+          <div class="hero__metrics reveal">
+            <div class="metric"><strong data-count="5">0</strong><span>Obligatory Salah</span></div>
+            <div class="metric"><strong data-count="7">0</strong><span>Spiritual Modules</span></div>
+            <div class="metric"><strong>24/7</strong><span>Offline Access</span></div>
           </div>
         </div>
-        <div class="hero__phone reveal-right">
-          <div class="phone">
-            <div class="phone__frame">
-              <div class="phone__notch"></div>
-              <div class="phone__screen" id="heroScreen">
-                <div class="mock-prayer active" data-screen="prayer">
-                  <div class="mock-header">
-                    <div>
-                      <div class="mock-date">Today, 3 July</div>
-                      <div class="mock-hijri">٧ محرم ١٤٤٧</div>
-                    </div>
-                    <div class="mock-refresh">↻</div>
-                  </div>
-                  <div class="mock-next-prayer">
-                    <span class="mock-label">Next Prayer</span>
-                    <span class="mock-prayer-name">Maghrib</span>
-                    <span class="mock-countdown">in 2h 14m</span>
-                  </div>
-                  <div class="mock-progress">
-                    <div class="mock-progress__bar" style="width: 62%"></div>
-                  </div>
-                  <div class="mock-prayer-list">
-                    <div class="mock-prayer-item done"><span>Fajr</span><span>4:12 AM</span><span class="check">✓</span></div>
-                    <div class="mock-prayer-item done"><span>Dhuhr</span><span>12:30 PM</span><span class="check">✓</span></div>
-                    <div class="mock-prayer-item active"><span>Asr</span><span>4:45 PM</span><span class="dot"></span></div>
-                    <div class="mock-prayer-item"><span>Maghrib</span><span>7:22 PM</span></div>
-                    <div class="mock-prayer-item"><span>Isha</span><span>8:45 PM</span></div>
-                  </div>
+
+        <div class="hero__devices reveal">
+          <div class="device device--back">
+            <div class="device__shell">
+              <div class="app app--qibla">
+                <div class="app__bar">Qibla</div>
+                <div class="compass">
+                  <div class="compass__ring"></div>
+                  <div class="compass__needle"></div>
+                  <span class="compass__kaaba">🕋</span>
                 </div>
+                <p class="compass__hint">Aligned · 261° WSW</p>
               </div>
             </div>
-            <div class="phone__glow"></div>
           </div>
-          <div class="hero__float hero__float--1">
-            <span>🔔</span> Smart Alarms
+          <div class="device device--front">
+            <div class="device__shell">
+              <div class="app app--prayer">
+                <div class="app__top">
+                  <div>
+                    <small>Today · 3 July 2026</small>
+                    <strong>7 Muharram 1447</strong>
+                  </div>
+                  <span class="app__pill">Lahore</span>
+                </div>
+                <div class="app__hero-card">
+                  <small>Next Prayer</small>
+                  <h3>Maghrib</h3>
+                  <div class="app__countdown"><span id="liveCountdown">--:--:--</span></div>
+                  <div class="app__progress"><div class="app__progress-fill"></div></div>
+                </div>
+                <div class="app__tracker">
+                  <div class="app__tracker-ring"><svg viewBox="0 0 36 36"><path d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831" fill="none" stroke="#2A2D3A" stroke-width="3"/><path class="ring-anim" d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831" fill="none" stroke="url(#ringGrad)" stroke-width="3" stroke-dasharray="60, 100"/><defs><linearGradient id="ringGrad"><stop stop-color="#6B4EFF"/><stop offset="1" stop-color="#1F8A70"/></linearGradient></defs></svg><span>3/5</span></div>
+                  <div><strong>Prayer Tracker</strong><small>3 of 5 completed today</small></div>
+                </div>
+                <ul class="app__prayers">
+                  <li class="done"><span>Fajr</span><time>4:12 AM</time><i>✓</i></li>
+                  <li class="done"><span>Dhuhr</span><time>12:30 PM</time><i>✓</i></li>
+                  <li class="active"><span>Asr</span><time>4:45 PM</time><i class="pulse"></i></li>
+                  <li><span>Maghrib</span><time>7:22 PM</time><i>🔔</i></li>
+                  <li><span>Isha</span><time>8:45 PM</time></li>
+                </ul>
+              </div>
+            </div>
+            <div class="device__shine"></div>
           </div>
-          <div class="hero__float hero__float--2">
-            <span>🧭</span> Qibla Ready
-          </div>
-          <div class="hero__float hero__float--3">
-            <span>📿</span> Tasbih Counter
-          </div>
+          <div class="float-card float-card--1"><span>🔔</span> 15 min before each salah</div>
+          <div class="float-card float-card--2"><span>📍</span> GPS · UIS Method</div>
         </div>
       </div>
-      <div class="hero__scroll">
-        <span>Scroll to explore</span>
-        <div class="scroll-indicator"></div>
+      <div class="marquee" aria-hidden="true">
+        <div class="marquee__track">
+          <span>Prayer Times</span><span>·</span><span>Smart Alarms</span><span>·</span><span>Qibla Compass</span><span>·</span><span>Quran Reader</span><span>·</span><span>Authentic Duas</span><span>·</span><span>Digital Tasbih</span><span>·</span><span>Hijri Calendar</span><span>·</span><span>Accountability Tracker</span><span>·</span>
+          <span>Prayer Times</span><span>·</span><span>Smart Alarms</span><span>·</span><span>Qibla Compass</span><span>·</span><span>Quran Reader</span><span>·</span><span>Authentic Duas</span><span>·</span><span>Digital Tasbih</span><span>·</span><span>Hijri Calendar</span><span>·</span><span>Accountability Tracker</span><span>·</span>
+        </div>
       </div>
     </section>
 
-    <!-- Features -->
-    <section class="features section" id="features">
+    <!-- FEATURES BENTO -->
+    <section class="section features" id="features">
       <div class="container">
-        <div class="section__header reveal">
-          <span class="section__tag">Everything You Need</span>
-          <h2 class="section__title">Built for the <span class="gradient-text">complete Muslim lifestyle</span></h2>
-          <p class="section__desc">Seven thoughtfully designed modules working together to keep your worship organized, on time, and meaningful.</p>
-        </div>
-        <div class="features__grid">
-          <article class="feature-card reveal" data-delay="0">
-            <div class="feature-card__icon feature-card__icon--purple">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707"/><circle cx="12" cy="12" r="4"/></svg>
-            </div>
-            <h3>Prayer Times</h3>
-            <p>Accurate Fajr through Isha times with Hijri calendar, live countdown to the next prayer, and daily progress tracking.</p>
-            <ul class="feature-card__tags">
-              <li>Adhan Engine</li>
-              <li>Hijri Date</li>
-              <li>Tracker</li>
-            </ul>
+        <header class="section-head reveal">
+          <span class="tag">Crafted with Purpose</span>
+          <h2>Every feature serves your <em>ibadah</em></h2>
+          <p>Seven interconnected modules — from Fajr alarms to evening dhikr — designed with scholarly accuracy and contemplative beauty.</p>
+        </header>
+        <div class="bento">
+          <article class="bento__card bento__card--hero reveal">
+            <div class="bento__glow"></div>
+            <div class="bento__icon">🕌</div>
+            <h3>Prayer Dashboard</h3>
+            <p>Live Adhan calculations with Hijri dates, Imsak &amp; sunrise times, current/next prayer highlights, and a visual tracker for daily consistency.</p>
+            <ul class="bento__tags"><li>Adhan Dart</li><li>Hijri Calendar</li><li>Per-Salah Alarms</li><li>Pull to Refresh</li></ul>
           </article>
-
-          <article class="feature-card reveal" data-delay="1">
-            <div class="feature-card__icon feature-card__icon--green">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg>
-            </div>
-            <h3>Smart Alarms</h3>
-            <p>Reliable prayer notifications that wake you for Fajr and remind you throughout the day — never miss a salah again.</p>
-            <ul class="feature-card__tags">
-              <li>Exact Alarms</li>
-              <li>Per-Prayer</li>
-              <li>Permissions</li>
-            </ul>
+          <article class="bento__card reveal">
+            <div class="bento__icon">🔔</div>
+            <h3>Exact Alarms</h3>
+            <p>Toggle alarms per prayer — 15 minutes before Adhan. Never miss Fajr again with reliable Android notifications.</p>
           </article>
-
-          <article class="feature-card reveal" data-delay="2">
-            <div class="feature-card__icon feature-card__icon--blue">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="12" r="10"/><polygon points="16.24 7.76 14.12 14.12 7.76 16.24 9.88 9.88 16.24 7.76"/></svg>
-            </div>
+          <article class="bento__card reveal">
+            <div class="bento__icon">🧭</div>
             <h3>Qibla Compass</h3>
-            <p>Real-time compass with live heading, Qibla bearing calculation, and turn-by-turn alignment guidance.</p>
-            <ul class="feature-card__tags">
-              <li>Live Compass</li>
-              <li>GPS Based</li>
-              <li>Alignment</li>
-            </ul>
+            <p>Real-time heading with turn-by-turn guidance. Green alignment when facing the Kaaba.</p>
           </article>
-
-          <article class="feature-card reveal" data-delay="0">
-            <div class="feature-card__icon feature-card__icon--gold">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg>
-            </div>
+          <article class="bento__card reveal">
+            <div class="bento__icon">📖</div>
             <h3>Quran</h3>
-            <p>Read and reflect with a clean, distraction-free Quran module designed for daily recitation and study.</p>
-            <ul class="feature-card__tags">
-              <li>Surahs</li>
-              <li>Clean UI</li>
-              <li>Offline</li>
-            </ul>
+            <p>Distraction-free surah reading with Arabic names, verse counts, and translations for reflection.</p>
           </article>
-
-          <article class="feature-card reveal" data-delay="1">
-            <div class="feature-card__icon feature-card__icon--rose">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
-            </div>
-            <h3>Duas & Supplications</h3>
-            <p>Curated collection of authentic duas for every moment — morning, evening, travel, and daily remembrance.</p>
-            <ul class="feature-card__tags">
-              <li>Arabic</li>
-              <li>Translation</li>
-              <li>Categories</li>
-            </ul>
+          <article class="bento__card reveal">
+            <div class="bento__icon">🤲</div>
+            <h3>Duas Library</h3>
+            <p>Curated supplications with Arabic, transliteration, translation, and authentic references.</p>
           </article>
-
-          <article class="feature-card reveal" data-delay="2">
-            <div class="feature-card__icon feature-card__icon--teal">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>
-            </div>
+          <article class="bento__card reveal">
+            <div class="bento__icon">📿</div>
             <h3>Digital Tasbih</h3>
-            <p>Beautiful electronic prayer beads counter for dhikr — tap to count, reset anytime, track your daily remembrance.</p>
-            <ul class="feature-card__tags">
-              <li>Tap Counter</li>
-              <li>Haptic</li>
-              <li>Reset</li>
-            </ul>
+            <p>Elegant tap counter for SubhanAllah, Alhamdulillah, and Allahu Akbar — reset anytime.</p>
           </article>
-
-          <article class="feature-card feature-card--wide reveal" data-delay="0">
-            <div class="feature-card__row">
+          <article class="bento__card bento__card--wide reveal">
+            <div class="bento__split">
               <div>
-                <div class="feature-card__icon feature-card__icon--purple">
-                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
-                </div>
-                <h3>Location & Calculation</h3>
-                <p>Auto-detect your city via GPS or set manually. Choose from multiple scholarly calculation methods for precise prayer times anywhere in the world.</p>
+                <div class="bento__icon">📍</div>
+                <h3>Location &amp; Calculation Methods</h3>
+                <p>Auto-detect via GPS or set your city manually. Choose from University of Islamic Sciences, Muslim World League, and more scholarly methods.</p>
               </div>
-              <div class="feature-card__visual">
-                <div class="location-pill"><span class="dot-green"></span> Lahore, Pakistan</div>
-                <div class="location-pill"><span class="dot-purple"></span> University of Islamic Sciences</div>
-                <div class="location-pill"><span class="dot-green"></span> Auto-detect ON</div>
-              </div>
-            </div>
-          </article>
-
-          <article class="feature-card feature-card--wide reveal" data-delay="1">
-            <div class="feature-card__row">
-              <div>
-                <div class="feature-card__icon feature-card__icon--green">
-                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
-                </div>
-                <h3>Accountability Tracker</h3>
-                <p>Mark prayers as completed, see your daily progress bar fill up, and build consistency with visual streak tracking.</p>
-              </div>
-              <div class="feature-card__visual">
-                <div class="tracker-bar">
-                  <div class="tracker-bar__fill"></div>
-                </div>
-                <div class="tracker-label">3 of 5 prayers today</div>
+              <div class="bento__chips">
+                <div class="chip chip--live"><span></span> Auto-detect ON</div>
+                <div class="chip">Lahore, Pakistan</div>
+                <div class="chip">University of Islamic Sciences</div>
+                <div class="chip">Hanafi Asr</div>
               </div>
             </div>
           </article>
@@ -269,251 +202,135 @@
       </div>
     </section>
 
-    <!-- Showcase -->
-    <section class="showcase section" id="showcase">
+    <!-- SCREENS -->
+    <section class="section screens" id="screens">
       <div class="container">
-        <div class="section__header reveal">
-          <span class="section__tag">App Showcase</span>
-          <h2 class="section__title">See it in <span class="gradient-text">action</span></h2>
-          <p class="section__desc">Every screen crafted with Material 3 design, soft surfaces, and intentional typography.</p>
+        <header class="section-head reveal">
+          <span class="tag">Inside the App</span>
+          <h2>Material 3, reimagined for <em>tranquility</em></h2>
+        </header>
+      </div>
+      <div class="screens__rail" id="screensRail">
+        <div class="screen-card reveal">
+          <div class="screen-card__phone"><div class="mini-app mini-app--1"><div class="mini-bar">Onboarding</div><div class="mini-hero">🌙</div><p>Welcome to<br/><strong>Noor ul Haya</strong></p><div class="mini-dots"><span class="on"></span><span></span><span></span></div></div></div>
+          <h4>Guided Onboarding</h4><p>Location, notifications &amp; calculation setup in three serene steps.</p>
         </div>
-        <div class="showcase__layout">
-          <div class="showcase__tabs reveal-left">
-            <button class="showcase-tab active" data-tab="prayer">
-              <span class="showcase-tab__icon">🕌</span>
-              <div>
-                <strong>Prayer Dashboard</strong>
-                <small>Times, tracker & countdown</small>
-              </div>
-            </button>
-            <button class="showcase-tab" data-tab="qibla">
-              <span class="showcase-tab__icon">🧭</span>
-              <div>
-                <strong>Qibla Compass</strong>
-                <small>Live direction finder</small>
-              </div>
-            </button>
-            <button class="showcase-tab" data-tab="quran">
-              <span class="showcase-tab__icon">📖</span>
-              <div>
-                <strong>Quran Reader</strong>
-                <small>Surahs & recitation</small>
-              </div>
-            </button>
-            <button class="showcase-tab" data-tab="duas">
-              <span class="showcase-tab__icon">🤲</span>
-              <div>
-                <strong>Duas</strong>
-                <small>Supplications library</small>
-              </div>
-            </button>
-            <button class="showcase-tab" data-tab="tasbih">
-              <span class="showcase-tab__icon">📿</span>
-              <div>
-                <strong>Tasbih</strong>
-                <small>Digital dhikr counter</small>
-              </div>
-            </button>
-            <button class="showcase-tab" data-tab="settings">
-              <span class="showcase-tab__icon">⚙️</span>
-              <div>
-                <strong>Settings</strong>
-                <small>Location & preferences</small>
-              </div>
-            </button>
-          </div>
-          <div class="showcase__phone reveal-right">
-            <div class="phone phone--lg">
-              <div class="phone__frame">
-                <div class="phone__notch"></div>
-                <div class="phone__screen" id="showcaseScreen">
-                  <!-- Prayer -->
-                  <div class="screen-panel active" data-panel="prayer">
-                    <div class="sp-header">Prayers</div>
-                    <div class="sp-next">
-                      <small>Next · Maghrib</small>
-                      <strong>7:22 PM</strong>
-                      <span class="sp-countdown">2h 14m remaining</span>
-                    </div>
-                    <div class="sp-list">
-                      <div class="sp-item done">Fajr <span>4:12</span></div>
-                      <div class="sp-item done">Dhuhr <span>12:30</span></div>
-                      <div class="sp-item current">Asr <span>4:45</span></div>
-                      <div class="sp-item">Maghrib <span>7:22</span></div>
-                      <div class="sp-item">Isha <span>8:45</span></div>
-                    </div>
-                    <div class="sp-nav">
-                      <span class="active">🕌</span><span>🧭</span><span>⚙️</span>
-                    </div>
-                  </div>
-                  <!-- Qibla -->
-                  <div class="screen-panel" data-panel="qibla">
-                    <div class="sp-header">Qibla</div>
-                    <div class="sp-compass">
-                      <div class="sp-compass__ring">
-                        <span class="sp-compass__n">N</span>
-                        <div class="sp-compass__needle"></div>
-                        <div class="sp-compass__qibla">🕋</div>
-                      </div>
-                    </div>
-                    <div class="sp-compass-info">Turn right 24°</div>
-                    <div class="sp-nav">
-                      <span>🕌</span><span class="active">🧭</span><span>⚙️</span>
-                    </div>
-                  </div>
-                  <!-- Quran -->
-                  <div class="screen-panel" data-panel="quran">
-                    <div class="sp-header">Quran</div>
-                    <div class="sp-surah-list">
-                      <div class="sp-surah"><span>1</span><div><strong>Al-Fatiha</strong><small>The Opening · 7 ayahs</small></div></div>
-                      <div class="sp-surah"><span>2</span><div><strong>Al-Baqarah</strong><small>The Cow · 286 ayahs</small></div></div>
-                      <div class="sp-surah"><span>3</span><div><strong>Ali 'Imran</strong><small>Family of Imran · 200 ayahs</small></div></div>
-                      <div class="sp-surah"><span>4</span><div><strong>An-Nisa</strong><small>The Women · 176 ayahs</small></div></div>
-                    </div>
-                  </div>
-                  <!-- Duas -->
-                  <div class="screen-panel" data-panel="duas">
-                    <div class="sp-header">Duas</div>
-                    <div class="sp-dua-cats">
-                      <div class="sp-dua-cat active">Morning</div>
-                      <div class="sp-dua-cat">Evening</div>
-                      <div class="sp-dua-cat">Travel</div>
-                    </div>
-                    <div class="sp-dua-card">
-                      <p class="sp-dua-ar" dir="rtl">أَصْبَحْنَا وَأَصْبَحَ الْمُلْكُ لِلَّهِ</p>
-                      <p class="sp-dua-en">We have entered morning and the dominion belongs to Allah</p>
-                    </div>
-                  </div>
-                  <!-- Tasbih -->
-                  <div class="screen-panel" data-panel="tasbih">
-                    <div class="sp-header">Tasbih</div>
-                    <div class="sp-tasbih">
-                      <div class="sp-tasbih__ring">
-                        <span class="sp-tasbih__count">33</span>
-                        <small>SubhanAllah</small>
-                      </div>
-                      <div class="sp-tasbih__tap">Tap to count</div>
-                    </div>
-                  </div>
-                  <!-- Settings -->
-                  <div class="screen-panel" data-panel="settings">
-                    <div class="sp-header">Settings</div>
-                    <div class="sp-settings">
-                      <div class="sp-setting-group">
-                        <small>Explore</small>
-                        <div class="sp-explore-row">
-                          <span>📖 Quran</span><span>🤲 Duas</span><span>📿 Tasbih</span>
-                        </div>
-                      </div>
-                      <div class="sp-setting-item"><span>📍 Location</span><span>Lahore ›</span></div>
-                      <div class="sp-setting-item"><span>📡 Auto-detect</span><span class="toggle on"></span></div>
-                      <div class="sp-setting-item"><span>🧮 Calculation</span><span>UIS ›</span></div>
-                    </div>
-                    <div class="sp-nav">
-                      <span>🕌</span><span>🧭</span><span class="active">⚙️</span>
-                    </div>
-                  </div>
-                </div>
-              </div>
-              <div class="phone__glow phone__glow--green"></div>
+        <div class="screen-card reveal">
+          <div class="screen-card__phone"><div class="mini-app mini-app--2"><div class="mini-bar">Prayers</div><div class="mini-card purple">Maghrib · 7:22 PM</div><div class="mini-row done">Fajr ✓</div><div class="mini-row done">Dhuhr ✓</div><div class="mini-row">Asr</div></div></div>
+          <h4>Prayer Dashboard</h4><p>Tracker ring, alarm toggles, and live countdown to the next salah.</p>
+        </div>
+        <div class="screen-card reveal">
+          <div class="screen-card__phone"><div class="mini-app mini-app--3"><div class="mini-bar">Qibla</div><div class="mini-compass"></div><p class="green">Turn right 24°</p></div></div>
+          <h4>Qibla Finder</h4><p>Compass rose with bearing, heading, and alignment feedback.</p>
+        </div>
+        <div class="screen-card reveal">
+          <div class="screen-card__phone"><div class="mini-app mini-app--4"><div class="mini-bar">Quran</div><div class="mini-surah"><b>١</b><div>Al-Fatiha<small>الفاتحة · 7 ayahs</small></div></div><div class="mini-surah"><b>١١٢</b><div>Al-Ikhlas<small>الإخلاص · 4 ayahs</small></div></div></div></div>
+          <h4>Quran Reader</h4><p>Surah list with Arabic names and verse counts.</p>
+        </div>
+        <div class="screen-card reveal">
+          <div class="screen-card__phone"><div class="mini-app mini-app--5"><div class="mini-bar">Duas</div><p class="ar" dir="rtl">بِسْمِ اللَّهِ</p><p class="trans">Bismillah — In the name of Allah.</p></div></div>
+          <h4>Supplications</h4><p>Arabic, transliteration, translation &amp; hadith references.</p>
+        </div>
+        <div class="screen-card reveal">
+          <div class="screen-card__phone"><div class="mini-app mini-app--6"><div class="mini-bar">Tasbih</div><div class="mini-bead">33</div><small>SubhanAllah</small></div></div>
+          <h4>Digital Tasbih</h4><p>Tap to count dhikr with haptic-ready interaction.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- SACRED LIBRARY -->
+    <section class="section sacred" id="sacred">
+      <div class="container">
+        <header class="section-head reveal">
+          <span class="tag">Sacred Library</span>
+          <h2>Content drawn from <em>authentic sources</em></h2>
+          <p>Real Quranic passages and prophetic supplications embedded in the app — presented with reverence.</p>
+        </header>
+        <div class="sacred__grid">
+          <div class="quran-panel reveal">
+            <h3>📖 From the Quran</h3>
+            <blockquote class="quran-verse" dir="rtl">بِسْمِ اللَّهِ الرَّحْمَٰنِ الرَّحِيمِ ﴿١﴾ الْحَمْدُ لِلَّهِ رَبِّ الْعَالَمِينَ ﴿٢﴾</blockquote>
+            <p class="quran-trans">In the name of Allah, the Entirely Merciful, the Especially Merciful. All praise is due to Allah, Lord of the worlds.</p>
+            <cite>Surah Al-Fatiha · Opening chapter</cite>
+            <div class="surah-pills">
+              <span>Al-Fatiha</span><span>Al-Ikhlas</span><span>Al-Falaq</span><span>An-Nas</span><span>Ya-Sin</span>
             </div>
+          </div>
+          <div class="dua-stack reveal">
+            <article class="dua-card">
+              <header><strong>When distressed</strong><span>Quran 21:87</span></header>
+              <p class="dua-card__ar" dir="rtl">لَا إِلَٰهَ إِلَّا أَنْتَ سُبْحَانَكَ إِنِّي كُنْتُ مِنَ الظَّالِمِينَ</p>
+              <p class="dua-card__en">There is no deity except You; exalted are You. Indeed, I have been of the wrongdoers.</p>
+            </article>
+            <article class="dua-card">
+              <header><strong>Before sleep</strong><span>Bukhari</span></header>
+              <p class="dua-card__ar" dir="rtl">بِاسْمِكَ اللَّهُمَّ أَمُوتُ وَأَحْيَا</p>
+              <p class="dua-card__en">In Your name O Allah, I die and I live.</p>
+            </article>
+            <article class="dua-card">
+              <header><strong>For forgiveness</strong><span>Abu Dawud</span></header>
+              <p class="dua-card__ar" dir="rtl">رَبِّ اغْفِرْ لِي وَتُبْ عَلَيَّ إِنَّكَ أَنْتَ التَّوَّابُ الرَّحِيمُ</p>
+              <p class="dua-card__en">My Lord, forgive me and accept my repentance. Indeed, You are the Accepting of repentance, the Merciful.</p>
+            </article>
           </div>
         </div>
       </div>
     </section>
 
-    <!-- How it works -->
-    <section class="how section" id="how-it-works">
+    <!-- JOURNEY -->
+    <section class="section journey">
       <div class="container">
-        <div class="section__header reveal">
-          <span class="section__tag">Simple Setup</span>
-          <h2 class="section__title">Ready in <span class="gradient-text">three steps</span></h2>
+        <header class="section-head reveal">
+          <span class="tag">Your Path</span>
+          <h2>From download to <em>daily devotion</em></h2>
+        </header>
+        <div class="journey__steps">
+          <div class="step reveal"><div class="step__num">01</div><h4>Install &amp; Open</h4><p>A luminous splash welcomes you. No account required — your worship stays private on your device.</p></div>
+          <div class="step reveal"><div class="step__num">02</div><h4>Set Your City</h4><p>Grant location for instant prayer times, or pick your city and scholarly calculation method manually.</p></div>
+          <div class="step reveal"><div class="step__num">03</div><h4>Enable Alarms</h4><p>Allow notifications so Fajr, Dhuhr, Asr, Maghrib, and Isha reach you — 15 minutes before each Adhan.</p></div>
+          <div class="step reveal"><div class="step__num">04</div><h4>Live with Noor</h4><p>Track salah, find Qibla, read Quran, recite duas, and count dhikr — all in one serene companion.</p></div>
         </div>
-        <div class="how__steps">
-          <div class="how-step reveal" data-delay="0">
-            <div class="how-step__num">01</div>
-            <div class="how-step__content">
-              <h3>Download & Open</h3>
-              <p>Install the APK on your Android device. A beautiful splash screen welcomes you to Noor ul Haya.</p>
-            </div>
-            <div class="how-step__line"></div>
-          </div>
-          <div class="how-step reveal" data-delay="1">
-            <div class="how-step__num">02</div>
-            <div class="how-step__content">
-              <h3>Set Your Location</h3>
-              <p>Onboarding guides you through location permissions and notification setup for accurate, localized prayer times.</p>
-            </div>
-            <div class="how-step__line"></div>
-          </div>
-          <div class="how-step reveal" data-delay="2">
-            <div class="how-step__num">03</div>
-            <div class="how-step__content">
-              <h3>Stay Connected</h3>
-              <p>Track prayers, receive alarms, find Qibla, read Quran, and make dhikr — all from one elegant app.</p>
-            </div>
+      </div>
+    </section>
+
+    <!-- TECH -->
+    <section class="section tech">
+      <div class="container reveal">
+        <span class="tag">Engineering</span>
+        <div class="tech__row">
+          <p>Built with <strong>Flutter 3.8+</strong>, Riverpod, GoRouter, Adhan Dart, Hive, Geolocator, and Clean Architecture — engineered for reliability, offline use, and future growth.</p>
+          <div class="tech__badges">
+            <span>Flutter</span><span>Riverpod</span><span>Material 3</span><span>Adhan</span><span>Hive</span><span>GoRouter</span>
           </div>
         </div>
       </div>
     </section>
 
-    <!-- Tech -->
-    <section class="tech section">
+    <!-- DOWNLOAD -->
+    <section class="section download" id="download">
+      <div class="download__aurora"></div>
       <div class="container">
-        <div class="section__header reveal">
-          <span class="section__tag">Under the Hood</span>
-          <h2 class="section__title">Engineered with <span class="gradient-text">modern Flutter</span></h2>
-        </div>
-        <div class="tech__grid reveal">
-          <div class="tech-pill">Flutter 3.8+</div>
-          <div class="tech-pill">Riverpod</div>
-          <div class="tech-pill">GoRouter</div>
-          <div class="tech-pill">Adhan Dart</div>
-          <div class="tech-pill">Material 3</div>
-          <div class="tech-pill">Hive</div>
-          <div class="tech-pill">Geolocator</div>
-          <div class="tech-pill">Local Notifications</div>
-          <div class="tech-pill">Clean Architecture</div>
-        </div>
-      </div>
-    </section>
-
-    <!-- Download -->
-    <section class="download section" id="download">
-      <div class="download__bg">
-        <div class="hero__orb hero__orb--1"></div>
-        <div class="hero__orb hero__orb--2"></div>
-      </div>
-      <div class="container">
-        <div class="download__card reveal">
-          <div class="download__content">
-            <span class="section__tag">Available Now</span>
-            <h2>Begin your journey with <span class="gradient-text">Noor ul Haya</span></h2>
-            <p>Download the latest release for Android. Free, offline-capable, and built with love for the Ummah.</p>
-            <div class="download__actions">
-              <a href="https://github.com/UsmanGhias/noor-ul-haya/releases" class="btn btn--primary btn--lg" target="_blank" rel="noopener">
+        <div class="download__panel reveal">
+          <div class="download__copy">
+            <span class="tag">Begin Tonight</span>
+            <h2>Carry <em>noor</em> in your pocket</h2>
+            <p>Free for Android. Offline-capable. Built with love for the Ummah — from Fajr to Isha, every moment matters.</p>
+            <div class="download__btns">
+              <a href="https://github.com/UsmanGhias/noor-ul-haya/releases" class="btn btn--glow btn--lg" target="_blank" rel="noopener">
                 <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
-                Download for Android
+                Download APK
               </a>
-              <a href="https://github.com/UsmanGhias/noor-ul-haya" class="btn btn--ghost btn--lg" target="_blank" rel="noopener">
-                <svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.395-.135-.345-.72-1.395-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0 0 24 12c0-6.63-5.37-12-12-12z"/></svg>
-                View on GitHub
-              </a>
+              <a href="https://github.com/UsmanGhias/noor" class="btn btn--glass btn--lg" target="_blank" rel="noopener">View Source</a>
             </div>
-            <div class="download__meta">
-              <span>Android 7.0+</span>
-              <span>·</span>
-              <span>v1.0.0</span>
-              <span>·</span>
-              <span>~25 MB</span>
+            <div class="download__specs">
+              <span>Android 7.0+</span><span>v1.0.0</span><span>~25 MB</span><span>100% Free</span>
             </div>
           </div>
           <div class="download__visual">
-            <div class="download__moon">🌙</div>
-            <div class="download__rings">
-              <div class="ring ring--1"></div>
-              <div class="ring ring--2"></div>
-              <div class="ring ring--3"></div>
+            <div class="orbit">
+              <div class="orbit__ring"></div>
+              <div class="orbit__ring"></div>
+              <div class="orbit__moon">🌙</div>
             </div>
           </div>
         </div>
@@ -521,23 +338,20 @@
     </section>
   </main>
 
-  <!-- Footer -->
   <footer class="footer">
-    <div class="container footer__inner">
+    <div class="container footer__grid">
       <div class="footer__brand">
-        <span class="nav__logo">🌙</span>
-        <div>
-          <strong>Noor ul Haya</strong>
-          <p>نور الحياة — Light of Life</p>
-        </div>
+        <strong>Noor ul Haya</strong>
+        <p dir="rtl">نور الحياة — Light of Life</p>
+        <small>© 2026 · Built with Flutter &amp; faith</small>
       </div>
       <div class="footer__links">
         <a href="#features">Features</a>
-        <a href="#showcase">Showcase</a>
+        <a href="#screens">Screens</a>
+        <a href="#sacred">Sacred Library</a>
         <a href="#download">Download</a>
-        <a href="https://github.com/UsmanGhias/noor-ul-haya" target="_blank" rel="noopener">GitHub</a>
+        <a href="https://github.com/UsmanGhias/noor" target="_blank" rel="noopener">GitHub</a>
       </div>
-      <p class="footer__copy">© 2026 Noor ul Haya. Built with Flutter & faith.</p>
     </div>
   </footer>
 
