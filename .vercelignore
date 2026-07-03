@@ -1,0 +1,13 @@
+android
+ios
+lib
+test
+tool
+build
+.dart_tool
+.packages
+.pub-cache
+.metadata
+*.apk
+*.iml
+.github
