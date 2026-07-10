@@ -1,7 +1,7 @@
 name: noor_ul_haya
-description: Noor ul Haya — Islamic prayer companion with alarms, accountability, and spiritual tools.
+description: Noor ul Haya - Islamic prayer companion with alarms, accountability, and spiritual tools.
 publish_to: 'none'
-version: 1.0.0+1
+version: 1.4.0+6
 
 environment:
   sdk: ^3.8.0
@@ -20,6 +20,7 @@ dependencies:
   hijri: ^3.0.0
   hive: ^2.2.3
   hive_flutter: ^1.1.0
+  http: ^1.2.2
   intl: ^0.20.2
   permission_handler: ^11.4.0
   shared_preferences: ^2.5.3

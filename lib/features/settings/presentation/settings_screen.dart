@@ -40,6 +40,26 @@ class SettingsScreen extends ConsumerWidget {
               const SizedBox(width: 10),
               Expanded(
                 child: _ExploreCard(
+                  icon: '📜',
+                  label: 'Hadith',
+                  onTap: () => context.push(AppRoutes.hadith),
+                ),
+              ),
+              const SizedBox(width: 10),
+              Expanded(
+                child: _ExploreCard(
+                  icon: '📅',
+                  label: 'Calendar',
+                  onTap: () => context.push(AppRoutes.calendar),
+                ),
+              ),
+            ],
+          ),
+          const SizedBox(height: 10),
+          Row(
+            children: [
+              Expanded(
+                child: _ExploreCard(
                   icon: '🤲',
                   label: 'Duas',
                   onTap: () => context.push(AppRoutes.duas),
@@ -53,6 +73,8 @@ class SettingsScreen extends ConsumerWidget {
                   onTap: () => context.push(AppRoutes.tasbih),
                 ),
               ),
+              const SizedBox(width: 10),
+              const Expanded(child: SizedBox()),
             ],
           ),
           const SizedBox(height: 24),

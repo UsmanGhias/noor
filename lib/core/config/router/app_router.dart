@@ -1,6 +1,8 @@
 import 'package:go_router/go_router.dart';
 import 'package:noor_ul_haya/core/widgets/main_shell.dart';
+import 'package:noor_ul_haya/features/calendar/presentation/calendar_screen.dart';
 import 'package:noor_ul_haya/features/duas/presentation/duas_screen.dart';
+import 'package:noor_ul_haya/features/hadith/presentation/hadith_screen.dart';
 import 'package:noor_ul_haya/features/onboarding/presentation/onboarding_screen.dart';
 import 'package:noor_ul_haya/features/prayers/presentation/prayers_screen.dart';
 import 'package:noor_ul_haya/features/qibla/presentation/qibla_screen.dart';
@@ -21,6 +23,8 @@ abstract final class AppRoutes {
   static const String quran = '/quran';
   static const String duas = '/duas';
   static const String tasbih = '/tasbih';
+  static const String hadith = '/hadith';
+  static const String calendar = '/calendar';
 }
 
 /// Application router configuration.
@@ -50,6 +54,14 @@ final GoRouter appRouter = GoRouter(
     GoRoute(
       path: AppRoutes.tasbih,
       builder: (_, __) => const TasbihScreen(),
+    ),
+    GoRoute(
+      path: AppRoutes.hadith,
+      builder: (_, __) => const HadithScreen(),
+    ),
+    GoRoute(
+      path: AppRoutes.calendar,
+      builder: (_, __) => const CalendarScreen(),
     ),
     StatefulShellRoute.indexedStack(
       builder: (context, state, navigationShell) {

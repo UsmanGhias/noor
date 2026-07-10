@@ -37,7 +37,11 @@ abstract final class AppBootstrap {
     } on Object {
       tz.setLocalLocation(tz.getLocation('Asia/Karachi'));
     }
-    await PrayerAlarmService.instance.initialize();
+    try {
+      await PrayerAlarmService.instance.initialize();
+    } on Object {
+      // Notifications may be unavailable in tests / unsupported platforms.
+    }
     _preferences = await SharedPreferences.getInstance();
   }
 }

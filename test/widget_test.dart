@@ -13,8 +13,9 @@ void main() {
   setUp(() async {
     AppBootstrap.resetForTest();
     SharedPreferences.setMockInitialValues({'onboarding_complete': true});
-    TestDefaultBinaryMessengerBinding.instance.defaultBinaryMessenger
-        .setMockMethodCallHandler(
+    final messenger =
+        TestDefaultBinaryMessengerBinding.instance.defaultBinaryMessenger;
+    messenger.setMockMethodCallHandler(
       const MethodChannel('plugins.flutter.io/path_provider'),
       (call) async {
         if (call.method == 'getApplicationDocumentsDirectory') {
@@ -23,18 +24,22 @@ void main() {
         return null;
       },
     );
-    await AppBootstrap.ensureInitialized();
-    TestDefaultBinaryMessengerBinding.instance.defaultBinaryMessenger
-        .setMockMethodCallHandler(
+    messenger.setMockMethodCallHandler(
       const MethodChannel('flutter.baseflow.com/geolocator'),
       (call) async => false,
     );
+    messenger.setMockMethodCallHandler(
+      const MethodChannel('flutter_timezone'),
+      (call) async => 'Asia/Karachi',
+    );
+    await AppBootstrap.ensureInitialized();
   });
 
   tearDown(() {
     for (final channel in [
       'flutter.baseflow.com/geolocator',
       'plugins.flutter.io/path_provider',
+      'flutter_timezone',
     ]) {
       TestDefaultBinaryMessengerBinding.instance.defaultBinaryMessenger
           .setMockMethodCallHandler(MethodChannel(channel), null);
@@ -52,8 +57,15 @@ void main() {
     );
 
     await tester.pump();
-    await tester.pump(const Duration(seconds: 2));
+    for (var i = 0; i < 10; i++) {
+      await tester.pump(const Duration(milliseconds: 300));
+      if (find.text('Prayer Times').evaluate().isNotEmpty) {
+        break;
+      }
+    }
 
+    expect(find.textContaining('Assalamu'), findsWidgets);
     expect(find.text('Prayer Times'), findsOneWidget);
+    expect(find.text('Hadith'), findsWidgets);
   });
 }
