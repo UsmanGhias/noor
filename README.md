@@ -1,8 +1,8 @@
 # Noor ul Haya
 
-Islamic prayer companion built with Flutter — accurate prayer times, reliable alarms, accountability flows, Quran reminders, and spiritual tracking.
+Islamic prayer companion built with Flutter  -  accurate prayer times, reliable alarms, accountability flows, Quran reminders, and spiritual tracking.
 
-**Live showcase:** `index.html` at repo root — works on Vercel (auto) and [GitHub Pages](https://usmanghias.github.io/noor/) (enable **Settings → Pages → Source: GitHub Actions**).
+**Live showcase:** `index.html` at repo root  -  works on Vercel (auto) and [GitHub Pages](https://usmanghias.github.io/noor/) (enable **Settings → Pages → Source: GitHub Actions**).
 
 **Version:** 1.0.0  
 **Architecture:** Clean Architecture + Feature First  

@@ -47,6 +47,8 @@ app.*.map.json
 /android/build/
 /android/.gradle/
 *.apk
+!releases/*.apk
+!releases/*.aab
 
 # Test / coverage
 /coverage/

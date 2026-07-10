@@ -1,15 +1,18 @@
+import 'package:adhan_dart/adhan_dart.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:go_router/go_router.dart';
 import 'package:hijri/hijri_calendar.dart';
 import 'package:intl/intl.dart';
-import 'package:noor_ul_haya/core/services/prayer_alarm_service.dart';
+import 'package:noor_ul_haya/core/config/router/app_router.dart';
 import 'package:noor_ul_haya/core/providers/prayer_providers.dart';
+import 'package:noor_ul_haya/core/services/prayer_alarm_service.dart';
 import 'package:noor_ul_haya/core/services/prayer_location_service.dart';
 import 'package:noor_ul_haya/core/theme/app_colors.dart';
 import 'package:noor_ul_haya/core/utils/prayer_utils.dart';
-import 'package:adhan_dart/adhan_dart.dart';
+import 'package:noor_ul_haya/features/hadith/providers/hadith_providers.dart';
 
-/// Main prayer dashboard with times, tracker, and alarms.
+/// Main prayer dashboard with greeting, quick actions, times, and alarms.
 class PrayersScreen extends ConsumerStatefulWidget {
   const PrayersScreen({super.key});
 
@@ -18,10 +21,39 @@ class PrayersScreen extends ConsumerStatefulWidget {
 }
 
 class _PrayersScreenState extends ConsumerState<PrayersScreen> {
+  final _scrollController = ScrollController();
+  final _prayerTimesKey = GlobalKey();
+
+  @override
+  void dispose() {
+    _scrollController.dispose();
+    super.dispose();
+  }
+
+  void _scrollToPrayerTimes() {
+    final ctx = _prayerTimesKey.currentContext;
+    if (ctx != null) {
+      Scrollable.ensureVisible(
+        ctx,
+        duration: const Duration(milliseconds: 420),
+        curve: Curves.easeOutCubic,
+        alignment: 0.05,
+      );
+    }
+  }
+
+  String _timeGreeting() {
+    final hour = DateTime.now().hour;
+    if (hour < 12) return 'Good morning';
+    if (hour < 17) return 'Good afternoon';
+    return 'Good evening';
+  }
+
   @override
   Widget build(BuildContext context) {
     final scheduleAsync = ref.watch(prayerScheduleProvider);
     final prefs = ref.watch(prayerPreferencesProvider);
+    final dailyHadithAsync = ref.watch(dailyHadithProvider);
     final theme = Theme.of(context);
     final now = DateTime.now();
     final hijri = HijriCalendar.fromDate(now);
@@ -49,98 +81,208 @@ class _PrayersScreenState extends ConsumerState<PrayersScreen> {
                 await ref.read(prayerScheduleProvider.future);
               },
               child: ListView(
-                padding: const EdgeInsets.fromLTRB(16, 12, 16, 24),
+                controller: _scrollController,
+                padding: const EdgeInsets.fromLTRB(16, 6, 16, 24),
                 children: [
-                  Row(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Expanded(
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Text(
-                              'Today, ${DateFormat('d MMMM').format(now)}',
-                              style: theme.textTheme.headlineSmall?.copyWith(
-                                fontWeight: FontWeight.w700,
-                              ),
+                  // Compact status banner
+                  Container(
+                    padding:
+                        const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
+                    decoration: BoxDecoration(
+                      color: AppColors.bannerBg,
+                      borderRadius: BorderRadius.circular(12),
+                    ),
+                    child: Row(
+                      children: [
+                        const Icon(Icons.info_outline,
+                            size: 16, color: AppColors.brandPrimary),
+                        const SizedBox(width: 8),
+                        Expanded(
+                          child: Text(
+                            'Prayer times based on ${schedule.location.label}',
+                            style: const TextStyle(
+                              fontSize: 12,
+                              fontWeight: FontWeight.w600,
+                              color: AppColors.brandPrimary,
                             ),
-                            const SizedBox(height: 4),
-                            Text(
-                              '${hijri.hDay} ${hijri.longMonthName} ${hijri.hYear}',
-                              style: theme.textTheme.bodyMedium?.copyWith(
-                                color: AppColors.textSecondary,
-                              ),
-                            ),
-                          ],
+                          ),
                         ),
-                      ),
-                      IconButton(
-                        onPressed: () {
-                          ref.invalidate(prayerScheduleProvider);
-                        },
-                        icon: const Icon(Icons.refresh),
-                      ),
-                    ],
+                      ],
+                    ),
                   ),
-                  const SizedBox(height: 12),
-                  Wrap(
-                    spacing: 8,
-                    runSpacing: 8,
-                    children: [
-                      _Chip(
-                        icon: Icons.location_on_outlined,
-                        label: schedule.location.label,
-                      ),
-                      _Chip(
-                        icon: Icons.calculate_outlined,
-                        label: schedule.calculationLabel,
-                      ),
-                    ],
+                  const SizedBox(height: 10),
+
+                  // Compact Assalam greeting (no large empty gap)
+                  Text(
+                    'ٱلسَّلَامُ عَلَيْكُمْ',
+                    style: theme.textTheme.headlineMedium?.copyWith(
+                      color: AppColors.brandAccent,
+                      fontWeight: FontWeight.w700,
+                      height: 1.2,
+                      fontSize: 26,
+                    ),
                   ),
-                  const SizedBox(height: 16),
-                  Row(
-                    children: [
-                      Expanded(
-                        child: _CurrentPrayerCard(
-                          current: current,
-                          next: next,
-                          schedule: schedule,
-                          countdown: nextCountdown,
-                        ),
-                      ),
-                      const SizedBox(width: 12),
-                      _TrackerCard(
-                        prayedCount: prayedCount,
-                        total: PrayerSchedule.obligatoryPrayers.length,
-                      ),
-                    ],
+                  const SizedBox(height: 2),
+                  Text(
+                    'Assalamu Alaikum',
+                    style: theme.textTheme.titleLarge?.copyWith(
+                      fontWeight: FontWeight.w800,
+                      color: AppColors.textPrimary,
+                      height: 1.15,
+                    ),
                   ),
-                  const SizedBox(height: 16),
-                  Center(
+                  Text(
+                    _timeGreeting(),
+                    style: const TextStyle(
+                      color: AppColors.textSecondary,
+                      fontSize: 13,
+                    ),
+                  ),
+                  const SizedBox(height: 8),
+                  Align(
+                    alignment: Alignment.centerLeft,
                     child: Container(
                       padding: const EdgeInsets.symmetric(
-                        horizontal: 16,
-                        vertical: 8,
+                        horizontal: 10,
+                        vertical: 5,
                       ),
                       decoration: BoxDecoration(
                         color: Colors.white,
                         borderRadius: BorderRadius.circular(999),
                         border: Border.all(color: AppColors.cardBorder),
                       ),
-                      child: Text(
-                        'Imsak ${DateFormat.jm().format(prayerLocal(schedule.times.fajr))} | '
-                        'Sunrise ${DateFormat.jm().format(prayerLocal(schedule.times.sunrise))}',
-                        style: theme.textTheme.labelLarge?.copyWith(
-                          color: AppColors.textSecondary,
-                        ),
+                      child: Row(
+                        mainAxisSize: MainAxisSize.min,
+                        children: [
+                          const Icon(Icons.location_on_rounded,
+                              size: 14, color: AppColors.brandAccent),
+                          const SizedBox(width: 4),
+                          Text(
+                            schedule.location.label,
+                            style: const TextStyle(
+                              fontSize: 12,
+                              fontWeight: FontWeight.w600,
+                            ),
+                          ),
+                        ],
                       ),
                     ),
                   ),
-                  const SizedBox(height: 20),
+                  const SizedBox(height: 14),
+
+                  // Quick actions: Prayers, Quran, Hadith, Calendar
+                  Row(
+                    children: [
+                      Expanded(
+                        child: _QuickAction(
+                          icon: Icons.mosque_rounded,
+                          label: 'Prayers',
+                          onTap: _scrollToPrayerTimes,
+                        ),
+                      ),
+                      const SizedBox(width: 8),
+                      Expanded(
+                        child: _QuickAction(
+                          icon: Icons.menu_book_rounded,
+                          label: 'Quran',
+                          onTap: () => context.push(AppRoutes.quran),
+                        ),
+                      ),
+                      const SizedBox(width: 8),
+                      Expanded(
+                        child: _QuickAction(
+                          icon: Icons.format_quote_rounded,
+                          label: 'Hadith',
+                          onTap: () => context.push(AppRoutes.hadith),
+                        ),
+                      ),
+                      const SizedBox(width: 8),
+                      Expanded(
+                        child: _QuickAction(
+                          icon: Icons.calendar_month_rounded,
+                          label: 'Calendar',
+                          onTap: () => context.push(AppRoutes.calendar),
+                        ),
+                      ),
+                    ],
+                  ),
+                  const SizedBox(height: 12),
+
+                  // Dates
+                  Row(
+                    children: [
+                      Text(
+                        '${hijri.hDay} ${hijri.getLongMonthName()} ${hijri.hYear}',
+                        style: const TextStyle(
+                          fontWeight: FontWeight.w700,
+                          fontSize: 13,
+                        ),
+                      ),
+                      const Spacer(),
+                      Text(
+                        DateFormat('EEEE, d MMMM yyyy').format(now),
+                        style: const TextStyle(
+                          color: AppColors.textSecondary,
+                          fontSize: 12,
+                        ),
+                      ),
+                    ],
+                  ),
+                  const SizedBox(height: 12),
+
+                  // Progress + Next prayer
+                  Row(
+                    children: [
+                      Expanded(
+                        child: _TrackerCard(
+                          prayedCount: prayedCount,
+                          total: PrayerSchedule.obligatoryPrayers.length,
+                        ),
+                      ),
+                      const SizedBox(width: 10),
+                      Expanded(
+                        flex: 2,
+                        child: _NextPrayerCard(
+                          next: next,
+                          schedule: schedule,
+                          countdown: nextCountdown,
+                        ),
+                      ),
+                    ],
+                  ),
+                  const SizedBox(height: 12),
+
+                  // Daily hadith teaser
+                  dailyHadithAsync.when(
+                    loading: () => const SizedBox.shrink(),
+                    error: (_, __) => const SizedBox.shrink(),
+                    data: (hadith) => _DailyCard(
+                      title: 'Daily Hadith',
+                      subtitle: '${hadith.bookName} #${hadith.number}',
+                      arabic: hadith.arabic,
+                      body: hadith.english,
+                      onTap: () => context.push(AppRoutes.hadith),
+                    ),
+                  ),
+                  const SizedBox(height: 16),
+
+                  // Prayer times section (scroll target)
+                  KeyedSubtree(
+                    key: _prayerTimesKey,
+                    child: Text(
+                      'Prayer Times',
+                      style: theme.textTheme.titleLarge?.copyWith(
+                        fontWeight: FontWeight.w800,
+                        color: AppColors.brandPrimary,
+                      ),
+                    ),
+                  ),
+                  const SizedBox(height: 4),
                   Text(
-                    'Prayer Times',
-                    style: theme.textTheme.titleLarge?.copyWith(
-                      fontWeight: FontWeight.w700,
+                    'Imsak ${DateFormat.jm().format(prayerLocal(schedule.times.fajr))} · Sunrise ${DateFormat.jm().format(prayerLocal(schedule.times.sunrise))}',
+                    style: const TextStyle(
+                      color: AppColors.textSecondary,
+                      fontSize: 12,
                     ),
                   ),
                   const SizedBox(height: 12),
@@ -185,10 +327,31 @@ class _PrayersScreenState extends ConsumerState<PrayersScreen> {
                             ),
                           );
                         },
-                        onSetAlarm: () => _showAlarmSheet(context, prayer, time),
+                        onSetAlarm: () =>
+                            _showAlarmSheet(context, prayer, time),
                       ),
                     );
                   }),
+                  const SizedBox(height: 8),
+                  Row(
+                    children: [
+                      Expanded(
+                        child: OutlinedButton.icon(
+                          onPressed: () => context.push(AppRoutes.duas),
+                          icon: const Icon(Icons.volunteer_activism_outlined),
+                          label: const Text('Duas'),
+                        ),
+                      ),
+                      const SizedBox(width: 8),
+                      Expanded(
+                        child: OutlinedButton.icon(
+                          onPressed: () => context.push(AppRoutes.tasbih),
+                          icon: const Icon(Icons.radio_button_checked),
+                          label: const Text('Tasbih'),
+                        ),
+                      ),
+                    ],
+                  ),
                 ],
               ),
             );
@@ -225,7 +388,7 @@ class _PrayersScreenState extends ConsumerState<PrayersScreen> {
               Text(
                 DateFormat.jm().format(prayerLocal(time)),
                 style: Theme.of(context).textTheme.headlineSmall?.copyWith(
-                      color: AppColors.primary,
+                      color: AppColors.brandPrimary,
                     ),
               ),
               const SizedBox(height: 24),
@@ -255,7 +418,7 @@ class _PrayersScreenState extends ConsumerState<PrayersScreen> {
               const SizedBox(height: 12),
               OutlinedButton(
                 onPressed: () => Navigator.pop(context),
-                child: const Text('Adjust alarm time'),
+                child: const Text('Close'),
               ),
             ],
           ),
@@ -265,100 +428,212 @@ class _PrayersScreenState extends ConsumerState<PrayersScreen> {
   }
 }
 
-class _Chip extends StatelessWidget {
-  const _Chip({required this.icon, required this.label});
+class _QuickAction extends StatelessWidget {
+  const _QuickAction({
+    required this.icon,
+    required this.label,
+    required this.onTap,
+  });
 
   final IconData icon;
   final String label;
+  final VoidCallback onTap;
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
-      decoration: BoxDecoration(
-        color: Colors.white,
-        borderRadius: BorderRadius.circular(999),
-        border: Border.all(color: AppColors.cardBorder),
-      ),
-      child: Row(
-        mainAxisSize: MainAxisSize.min,
-        children: [
-          Icon(icon, size: 16, color: AppColors.accentGreen),
-          const SizedBox(width: 6),
-          Text(
-            label,
-            style: const TextStyle(fontSize: 13, fontWeight: FontWeight.w500),
+    return Material(
+      color: Colors.white,
+      borderRadius: BorderRadius.circular(16),
+      child: InkWell(
+        onTap: onTap,
+        borderRadius: BorderRadius.circular(16),
+        child: Container(
+          padding: const EdgeInsets.symmetric(vertical: 12),
+          decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(16),
+            border: Border.all(color: AppColors.cardBorder),
           ),
-        ],
+          child: Column(
+            children: [
+              Icon(icon, color: AppColors.brandAccent, size: 22),
+              const SizedBox(height: 4),
+              Text(
+                label,
+                style: const TextStyle(
+                  fontSize: 11,
+                  fontWeight: FontWeight.w700,
+                ),
+              ),
+            ],
+          ),
+        ),
       ),
     );
   }
 }
 
-class _CurrentPrayerCard extends StatelessWidget {
-  const _CurrentPrayerCard({
-    required this.current,
+class _DailyCard extends StatelessWidget {
+  const _DailyCard({
+    required this.title,
+    required this.subtitle,
+    required this.body,
+    this.arabic,
+    this.onTap,
+  });
+
+  final String title;
+  final String subtitle;
+  final String body;
+  final String? arabic;
+  final VoidCallback? onTap;
+
+  @override
+  Widget build(BuildContext context) {
+    return Material(
+      color: Colors.white,
+      borderRadius: BorderRadius.circular(18),
+      child: InkWell(
+        onTap: onTap,
+        borderRadius: BorderRadius.circular(18),
+        child: Container(
+          padding: const EdgeInsets.all(14),
+          decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(18),
+            border: Border.all(color: AppColors.cardBorder),
+          ),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.stretch,
+            children: [
+              Row(
+                children: [
+                  const Icon(Icons.format_quote_rounded,
+                      color: AppColors.brandAccent, size: 18),
+                  const SizedBox(width: 6),
+                  Text(
+                    title,
+                    style: const TextStyle(
+                      fontWeight: FontWeight.w800,
+                      color: AppColors.brandPrimary,
+                    ),
+                  ),
+                  const Spacer(),
+                  Text(
+                    subtitle,
+                    style: const TextStyle(
+                      fontSize: 11,
+                      color: AppColors.textSecondary,
+                    ),
+                  ),
+                ],
+              ),
+              if (arabic != null && arabic!.isNotEmpty) ...[
+                const SizedBox(height: 8),
+                Text(
+                  arabic!,
+                  textAlign: TextAlign.right,
+                  maxLines: 2,
+                  overflow: TextOverflow.ellipsis,
+                  style: const TextStyle(fontSize: 18, height: 1.6),
+                ),
+              ],
+              const SizedBox(height: 6),
+              Text(
+                body,
+                maxLines: 3,
+                overflow: TextOverflow.ellipsis,
+                style: const TextStyle(
+                  color: AppColors.textSecondary,
+                  height: 1.45,
+                  fontSize: 13,
+                ),
+              ),
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+}
+
+class _NextPrayerCard extends StatelessWidget {
+  const _NextPrayerCard({
     required this.next,
     required this.schedule,
     required this.countdown,
   });
 
-  final Prayer? current;
   final Prayer? next;
   final PrayerSchedule schedule;
   final Duration? countdown;
 
   @override
   Widget build(BuildContext context) {
-    final displayPrayer = current ?? next ?? Prayer.fajr;
+    final displayPrayer = next ?? Prayer.fajr;
     final time = displayTimeForPrayer(schedule.times, displayPrayer);
 
-    return Card(
-      child: Padding(
-        padding: const EdgeInsets.all(16),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Container(
-              padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
-              decoration: BoxDecoration(
-                color: AppColors.accentMint,
-                borderRadius: BorderRadius.circular(999),
+    return Container(
+      padding: const EdgeInsets.all(14),
+      decoration: BoxDecoration(
+        color: Colors.white,
+        borderRadius: BorderRadius.circular(18),
+        border: Border.all(color: AppColors.cardBorder),
+      ),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Container(
+            padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 3),
+            decoration: BoxDecoration(
+              color: AppColors.bannerBg,
+              borderRadius: BorderRadius.circular(999),
+            ),
+            child: const Text(
+              'Next Prayer',
+              style: TextStyle(
+                color: AppColors.brandPrimary,
+                fontWeight: FontWeight.w700,
+                fontSize: 11,
               ),
-              child: const Text(
-                'Now',
-                style: TextStyle(
-                  color: AppColors.accentGreen,
-                  fontWeight: FontWeight.w700,
-                  fontSize: 12,
+            ),
+          ),
+          const SizedBox(height: 8),
+          Row(
+            children: [
+              Expanded(
+                child: Text(
+                  prayerLabel(displayPrayer),
+                  style: const TextStyle(
+                    fontWeight: FontWeight.w800,
+                    fontSize: 18,
+                    color: AppColors.accentGreen,
+                  ),
                 ),
               ),
-            ),
-            const SizedBox(height: 10),
-            Text(
-              '${prayerEmoji(displayPrayer)} ${prayerLabel(displayPrayer)}',
-              style: Theme.of(context).textTheme.titleMedium?.copyWith(
-                    fontWeight: FontWeight.w700,
-                  ),
-            ),
-            const SizedBox(height: 6),
-            Text(
-              DateFormat.jm().format(prayerLocal(time)),
-              style: Theme.of(context).textTheme.headlineSmall?.copyWith(
-                    fontWeight: FontWeight.w800,
-                  ),
-            ),
-            if (next != null && countdown != null) ...[
-              const SizedBox(height: 8),
               Text(
-                '${prayerLabel(next!)} in ${formatDuration(countdown!)}',
-                style: Theme.of(context).textTheme.bodySmall?.copyWith(
-                      color: AppColors.textSecondary,
-                    ),
+                prayerEmoji(displayPrayer),
+                style: const TextStyle(fontSize: 18),
               ),
             ],
+          ),
+          Text(
+            DateFormat.jm().format(prayerLocal(time)),
+            style: const TextStyle(
+              fontWeight: FontWeight.w700,
+              fontSize: 15,
+            ),
+          ),
+          if (countdown != null) ...[
+            const SizedBox(height: 6),
+            Text(
+              formatDuration(countdown!),
+              style: const TextStyle(
+                color: AppColors.brandAccent,
+                fontWeight: FontWeight.w800,
+                fontSize: 13,
+              ),
+            ),
           ],
-        ),
+        ],
       ),
     );
   }
@@ -374,37 +649,45 @@ class _TrackerCard extends StatelessWidget {
   Widget build(BuildContext context) {
     final progress = total == 0 ? 0.0 : prayedCount / total;
 
-    return Card(
-      child: Padding(
-        padding: const EdgeInsets.all(16),
-        child: Column(
-          children: [
-            SizedBox(
-              width: 72,
-              height: 72,
-              child: Stack(
-                alignment: Alignment.center,
-                children: [
-                  CircularProgressIndicator(
-                    value: progress,
-                    strokeWidth: 6,
-                    color: AppColors.accentGreen,
-                    backgroundColor: AppColors.accentMint,
-                  ),
-                  Text(
-                    '$prayedCount/$total',
-                    style: const TextStyle(fontWeight: FontWeight.w700),
-                  ),
-                ],
-              ),
+    return Container(
+      padding: const EdgeInsets.all(14),
+      decoration: BoxDecoration(
+        color: Colors.white,
+        borderRadius: BorderRadius.circular(18),
+        border: Border.all(color: AppColors.cardBorder),
+      ),
+      child: Column(
+        children: [
+          SizedBox(
+            width: 64,
+            height: 64,
+            child: Stack(
+              alignment: Alignment.center,
+              children: [
+                CircularProgressIndicator(
+                  value: progress,
+                  strokeWidth: 6,
+                  color: AppColors.brandAccent,
+                  backgroundColor: AppColors.accentMint,
+                ),
+                Text(
+                  '$prayedCount/$total',
+                  style: const TextStyle(fontWeight: FontWeight.w800),
+                ),
+              ],
             ),
-            const SizedBox(height: 8),
-            const Text(
-              'prayed',
-              style: TextStyle(color: AppColors.textSecondary),
+          ),
+          const SizedBox(height: 6),
+          const Text(
+            "Today's progress",
+            textAlign: TextAlign.center,
+            style: TextStyle(
+              fontSize: 11,
+              fontWeight: FontWeight.w600,
+              color: AppColors.textSecondary,
             ),
-          ],
-        ),
+          ),
+        ],
       ),
     );
   }
@@ -455,10 +738,9 @@ class _PrayerRow extends StatelessWidget {
             IconButton(
               onPressed: onTogglePrayed,
               icon: Icon(
-                isPrayed
-                    ? Icons.check_circle
-                    : Icons.radio_button_unchecked,
-                color: isPrayed ? AppColors.accentGreen : AppColors.textSecondary,
+                isPrayed ? Icons.check_circle : Icons.radio_button_unchecked,
+                color:
+                    isPrayed ? AppColors.accentGreen : AppColors.textSecondary,
               ),
             ),
             Expanded(
@@ -495,7 +777,8 @@ class _PrayerRow extends StatelessWidget {
               onPressed: onToggleAlarm,
               icon: Icon(
                 alarmOn ? Icons.notifications_active : Icons.notifications_none,
-                color: alarmOn ? AppColors.primary : AppColors.textSecondary,
+                color:
+                    alarmOn ? AppColors.brandAccent : AppColors.textSecondary,
               ),
             ),
           ],
