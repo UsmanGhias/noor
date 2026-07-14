@@ -1,4 +1,4 @@
-/* Noor ul Haya — Premium interactions */
+/* Noor ul Haya - Premium interactions */
 (function () {
   'use strict';
 
