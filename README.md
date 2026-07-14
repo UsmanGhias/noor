@@ -1,8 +1,8 @@
 # Noor ul Haya
 
-Islamic prayer companion built with Flutter — accurate prayer times, reliable alarms, accountability flows, Quran reminders, and spiritual tracking.
+Islamic prayer companion built with Flutter: accurate prayer times, reliable alarms, accountability flows, Quran reminders, and spiritual tracking.
 
-**Live showcase:** `index.html` at repo root — works on Vercel (auto) and [GitHub Pages](https://usmanghias.github.io/noor/) (enable **Settings → Pages → Source: GitHub Actions**).
+**Live showcase:** `index.html` at repo root. Works on Vercel (auto) and [GitHub Pages](https://usmanghias.github.io/noor/) (enable **Settings → Pages → Source: GitHub Actions**).
 
 **Version:** 1.0.0  
 **Architecture:** Clean Architecture + Feature First  
@@ -111,6 +111,23 @@ Each feature is self-contained so Cursor AI agents can work on independent modul
 
 ---
 
+
+## Open Source Collaboration
+
+Noor ul Haya was opened for worldwide community collaboration on July 14, 2026, the project's Open Source Day. The goal is to improve the Quran Majeed and namaz experience for Muslims around the world while keeping the work open, respectful, and source-backed.
+
+Everyone is welcome to contribute through issues, discussions, forks, and pull requests. The maintainers may use accepted community contributions to improve the published Google Play version after review, testing, and release approval.
+
+Please read [CONTRIBUTING.md](CONTRIBUTING.md) before opening a pull request. Important rules include:
+
+- Keep Quran, hadith, namaz, and Islamic guidance changes accurate, respectful, and supported by reliable sources.
+- Do not include secrets, signing keys, Play Store credentials, private analytics keys, or user data.
+- Keep pull requests focused and include testing notes.
+- Add screenshots for visible UI changes.
+- Follow the GNU AGPLv3 or later license requirements for forks and redistributed versions.
+
+---
+
 ## Cursor Agent Workflow
 
 Use specialized agents in sequence to reduce conflicts:
@@ -140,4 +157,6 @@ GitHub Actions runs on every push and pull request:
 
 ## License
 
-Private project. All rights reserved.
+Noor ul Haya is open source under the GNU Affero General Public License v3.0 or later. See [LICENSE](LICENSE).
+
+This strong copyleft license is used so the app can stay open for everyone. You may use, study, share, and improve the code, but redistributed versions and qualifying modified network versions must also provide source code under the same license terms.
