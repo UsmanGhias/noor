@@ -1,24 +1,20 @@
 Noor Ul Haya - Release 1.4.0 (build 6)
 ========================================
 
-Install on phone (APK):
-  Noor-Ul-Haya-1.4.0-release.apk
-
 Upload to Google Play Console (AAB):
   Noor-Ul-Haya-1.4.0-release.aab
 
-Folder location in this project:
-  releases/
+Package ID: com.noorulhaya.noor_ul_haya
+Version name: 1.4.0
+Version code: 6
 
-Windows (if you use c:\Noor):
-  c:\Noor\releases\Noor-Ul-Haya-1.4.0-release.apk
-  c:\Noor\releases\Noor-Ul-Haya-1.4.0-release.aab
+Signing: RELEASE upload keystore (NOT debug)
+  Keystore: android/upload-keystore.jks
+  Credentials: android/PLAY_UPLOAD_CREDENTIALS.txt
+  KEEP THESE SAFE for future updates.
 
-What's in this build (targeted fixes only):
-  - Tighter Assalamu Alaikum spacing on home
-  - Quick actions: Prayers, Quran, Hadith, Calendar
-  - Hadith loads (CDN + offline fallback)
-  - Islamic calendar grid and events
-  - Em-dash text cleanup
+Also copied to project root:
+  Noor-Ul-Haya-1.4.0-upload.aab
 
-Note: Signed with debug keystore. For Play Store production, re-sign the AAB with your upload keystore.
+Flutter default output:
+  build/app/outputs/bundle/release/app-release.aab

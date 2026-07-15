@@ -61,3 +61,6 @@ app.*.map.json
 key.properties
 **/credentials.json
 **/secrets.json
+
+PLAY_UPLOAD_CREDENTIALS.txt
+android/PLAY_UPLOAD_CREDENTIALS.txt
