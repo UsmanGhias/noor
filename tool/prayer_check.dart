@@ -1,7 +1,10 @@
+// Command-line tool: printing is its output.
+// ignore_for_file: avoid_print
+
 import 'package:adhan_dart/adhan_dart.dart';
 
 void main() {
-  final c = const Coordinates(31.063, 72.961);
+  const c = Coordinates(31.063, 72.961);
   final t = PrayerTimes(
     date: DateTime.now(),
     coordinates: c,

@@ -16,10 +16,10 @@ class _TasbihScreenState extends State<TasbihScreen> {
   String _dhikr = 'SubhanAllah';
 
   static const _phrases = [
-  'SubhanAllah',
-  'Alhamdulillah',
-  'Allahu Akbar',
-  'La ilaha illallah',
+    'SubhanAllah',
+    'Alhamdulillah',
+    'Allahu Akbar',
+    'La ilaha illallah',
   ];
 
   void _tap() {
@@ -70,9 +70,9 @@ class _TasbihScreenState extends State<TasbihScreen> {
             Text(
               _dhikr,
               style: Theme.of(context).textTheme.headlineSmall?.copyWith(
-                    fontWeight: FontWeight.w700,
-                    color: AppColors.accentGreen,
-                  ),
+                fontWeight: FontWeight.w700,
+                color: AppColors.accentGreen,
+              ),
             ),
             const SizedBox(height: 24),
             GestureDetector(
@@ -83,10 +83,7 @@ class _TasbihScreenState extends State<TasbihScreen> {
                 decoration: BoxDecoration(
                   shape: BoxShape.circle,
                   color: Colors.white,
-                  border: Border.all(
-                    color: AppColors.accentGreen,
-                    width: 4,
-                  ),
+                  border: Border.all(color: AppColors.accentGreen, width: 4),
                   boxShadow: const [
                     BoxShadow(
                       color: Color(0x1A000000),
@@ -107,9 +104,7 @@ class _TasbihScreenState extends State<TasbihScreen> {
                     ),
                     Text(
                       '$inRound / $_target',
-                      style: const TextStyle(
-                        color: AppColors.textSecondary,
-                      ),
+                      style: const TextStyle(color: AppColors.textSecondary),
                     ),
                   ],
                 ),

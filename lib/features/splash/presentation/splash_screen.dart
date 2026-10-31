@@ -63,16 +63,16 @@ class _SplashScreenState extends ConsumerState<SplashScreen> {
               Text(
                 kAppName,
                 style: Theme.of(context).textTheme.headlineMedium?.copyWith(
-                      color: Colors.white,
-                      fontWeight: FontWeight.w700,
-                    ),
+                  color: Colors.white,
+                  fontWeight: FontWeight.w700,
+                ),
               ),
               const SizedBox(height: 8),
               Text(
                 'Your daily prayer companion',
                 style: Theme.of(context).textTheme.bodyLarge?.copyWith(
-                      color: Colors.white.withValues(alpha: 0.85),
-                    ),
+                  color: Colors.white.withValues(alpha: 0.85),
+                ),
               ),
               const SizedBox(height: 32),
               const SizedBox(

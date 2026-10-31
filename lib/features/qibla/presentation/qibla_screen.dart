@@ -1,3 +1,6 @@
+// Separate canvas calls read better in the painter.
+// ignore_for_file: cascade_invocations
+
 import 'dart:math' as math;
 
 import 'package:flutter/material.dart';
@@ -23,8 +26,7 @@ class QiblaScreen extends ConsumerWidget {
           loading: () => const Center(child: CircularProgressIndicator()),
           error: (_, __) => const Center(child: Text('Unable to load Qibla')),
           data: (schedule) {
-            final qiblaBearing =
-                qiblaDirection(schedule.location.coordinates);
+            final qiblaBearing = qiblaDirection(schedule.location.coordinates);
 
             return StreamBuilder<CompassEvent>(
               stream: FlutterCompass.events,
@@ -107,28 +109,28 @@ class QiblaScreen extends ConsumerWidget {
                       const SizedBox(height: 24),
                       Text(
                         instruction,
-                        style:
-                            Theme.of(context).textTheme.headlineMedium?.copyWith(
-                                  fontWeight: FontWeight.w800,
-                                  color: isAligned
-                                      ? AppColors.accentGreen
-                                      : AppColors.textPrimary,
-                                ),
+                        style: Theme.of(context).textTheme.headlineMedium
+                            ?.copyWith(
+                              fontWeight: FontWeight.w800,
+                              color: isAligned
+                                  ? AppColors.accentGreen
+                                  : AppColors.textPrimary,
+                            ),
                       ),
                       const SizedBox(height: 8),
                       Text(
                         'Qibla ${qiblaBearing.toStringAsFixed(0)}° • ${schedule.location.label}',
                         style: Theme.of(context).textTheme.bodyMedium?.copyWith(
-                              color: AppColors.textSecondary,
-                            ),
+                          color: AppColors.textSecondary,
+                        ),
                         textAlign: TextAlign.center,
                       ),
                       const SizedBox(height: 8),
                       Text(
                         'Hold phone flat and turn slowly',
                         style: Theme.of(context).textTheme.bodySmall?.copyWith(
-                              color: AppColors.textSecondary,
-                            ),
+                          color: AppColors.textSecondary,
+                        ),
                       ),
                       const Spacer(),
                     ],
@@ -242,16 +244,8 @@ class _CompassRosePainter extends CustomPainter {
         ..strokeWidth = 4
         ..strokeCap = StrokeCap.round,
     );
-    canvas.drawCircle(
-      qiblaEnd,
-      10,
-      Paint()..color = AppColors.accentGreen,
-    );
-    canvas.drawCircle(
-      qiblaEnd,
-      5,
-      Paint()..color = Colors.white,
-    );
+    canvas.drawCircle(qiblaEnd, 10, Paint()..color = AppColors.accentGreen);
+    canvas.drawCircle(qiblaEnd, 5, Paint()..color = Colors.white);
   }
 
   @override

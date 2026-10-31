@@ -70,9 +70,7 @@ class QuranScreen extends StatelessWidget {
 
   void _openSurah(BuildContext context, SurahEntry surah) {
     Navigator.of(context).push(
-      MaterialPageRoute<void>(
-        builder: (_) => _SurahDetailScreen(surah: surah),
-      ),
+      MaterialPageRoute<void>(builder: (_) => _SurahDetailScreen(surah: surah)),
     );
   }
 }
@@ -102,9 +100,7 @@ class _SurahDetailScreen extends StatelessWidget {
           const SizedBox(height: 16),
           Text(
             surah.translation,
-            style: Theme.of(context).textTheme.bodyLarge?.copyWith(
-                  height: 1.6,
-                ),
+            style: Theme.of(context).textTheme.bodyLarge?.copyWith(height: 1.6),
           ),
         ],
       ),

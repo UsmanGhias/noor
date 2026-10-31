@@ -149,8 +149,7 @@ class PrayerPreferencesService {
 
   CalculationParameters calculationParameters(PrayerPreferences prefs) {
     final params = switch (prefs.calculationMethod) {
-      CalculationMethodOption.karachi =>
-        CalculationMethodParameters.karachi(),
+      CalculationMethodOption.karachi => CalculationMethodParameters.karachi(),
       CalculationMethodOption.muslimWorldLeague =>
         CalculationMethodParameters.muslimWorldLeague(),
       CalculationMethodOption.ummAlQura =>
@@ -159,8 +158,7 @@ class PrayerPreferencesService {
         CalculationMethodParameters.egyptian(),
       CalculationMethodOption.dubai => CalculationMethodParameters.dubai(),
     };
-    params.madhab = prefs.madhab;
-    return params;
+    return params..madhab = prefs.madhab;
   }
 
   String _prayedKey(DateTime date) {

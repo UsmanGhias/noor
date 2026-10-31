@@ -1,5 +1,3 @@
-import 'package:adhan_dart/adhan_dart.dart';
-
 class SurahEntry {
   const SurahEntry({
     required this.number,
@@ -94,7 +92,7 @@ abstract final class IslamicContent {
       arabic:
           'الْحَمْدُ لِلَّهِ الَّذِي أَطْعَمَنِي هَذَا وَرَزَقَنِيهِ مِنْ غَيْرِ حَوْلٍ مِنِّي وَلَا قُوَّةٍ',
       transliteration:
-          'Alhamdu lillahil-ladhi at\'amani hadha wa razaqanihi min ghayri haulin minni wa la quwwah',
+          "Alhamdu lillahil-ladhi at'amani hadha wa razaqanihi min ghayri haulin minni wa la quwwah",
       translation:
           'All praise is for Allah who fed me this and provided it for me without any might or power from myself.',
       reference: 'Tirmidhi',
@@ -104,7 +102,7 @@ abstract final class IslamicContent {
       arabic:
           'بِسْمِ اللَّهِ وَلَجْنَا، وَبِسْمِ اللَّهِ خَرَجْنَا، وَعَلَى اللَّهِ رَبِّنَا تَوَكَّلْنَا',
       transliteration:
-          'Bismillahi walajna, wa bismillahi kharajna, wa \'alallahi rabbina tawakkalna',
+          "Bismillahi walajna, wa bismillahi kharajna, wa 'alallahi rabbina tawakkalna",
       translation:
           'In the name of Allah we enter, in the name of Allah we leave, and upon our Lord we place our trust.',
       reference: 'Abu Dawud',
@@ -121,14 +119,15 @@ abstract final class IslamicContent {
       arabic:
           'رَبِّ اغْفِرْ لِي وَتُبْ عَلَيَّ إِنَّكَ أَنْتَ التَّوَّابُ الرَّحِيمُ',
       transliteration:
-          'Rabbighfir li wa tub \'alayya innaka Antat-Tawwabur-Rahim',
+          "Rabbighfir li wa tub 'alayya innaka Antat-Tawwabur-Rahim",
       translation:
           'My Lord, forgive me and accept my repentance. Indeed, You are the Accepting of repentance, the Merciful.',
       reference: 'Abu Dawud',
     ),
     DuaEntry(
       title: 'When distressed',
-      arabic: 'لَا إِلَٰهَ إِلَّا أَنْتَ سُبْحَانَكَ إِنِّي كُنْتُ مِنَ الظَّالِمِينَ',
+      arabic:
+          'لَا إِلَٰهَ إِلَّا أَنْتَ سُبْحَانَكَ إِنِّي كُنْتُ مِنَ الظَّالِمِينَ',
       transliteration: 'La ilaha illa Anta Subhanaka inni kuntu minaz-zalimin',
       translation:
           'There is no deity except You; exalted are You. Indeed, I have been of the wrongdoers.',

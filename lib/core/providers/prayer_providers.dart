@@ -13,7 +13,9 @@ final sharedPreferencesProvider = Provider<SharedPreferences>((ref) {
   throw UnimplementedError('SharedPreferences must be overridden in main()');
 });
 
-final prayerPreferencesServiceProvider = Provider<PrayerPreferencesService>((ref) {
+final prayerPreferencesServiceProvider = Provider<PrayerPreferencesService>((
+  ref,
+) {
   final prefs = ref.watch(sharedPreferencesProvider);
   return PrayerPreferencesService(prefs);
 });
@@ -24,11 +26,13 @@ final prayerLocationServiceProvider = Provider<PrayerLocationService>((ref) {
 
 class PrayerPreferencesNotifier extends StateNotifier<PrayerPreferences> {
   PrayerPreferencesNotifier(this._service, PrayerPreferences initial)
-      : super(initial);
+    : super(initial);
 
   final PrayerPreferencesService _service;
 
-  Future<void> update(PrayerPreferences Function(PrayerPreferences) transform) async {
+  Future<void> update(
+    PrayerPreferences Function(PrayerPreferences) transform,
+  ) async {
     state = transform(state);
     await _service.save(state);
   }
@@ -52,15 +56,16 @@ class PrayerPreferencesNotifier extends StateNotifier<PrayerPreferences> {
 
 final prayerPreferencesProvider =
     StateNotifierProvider<PrayerPreferencesNotifier, PrayerPreferences>((ref) {
-  final service = ref.watch(prayerPreferencesServiceProvider);
-  return PrayerPreferencesNotifier(service, service.load());
-});
+      final service = ref.watch(prayerPreferencesServiceProvider);
+      return PrayerPreferencesNotifier(service, service.load());
+    });
 
 final prayerScheduleProvider = FutureProvider<PrayerSchedule>((ref) async {
   ref.watch(prayerPreferencesProvider);
   final prefs = ref.read(prayerPreferencesProvider);
-  final schedule =
-      await ref.watch(prayerLocationServiceProvider).loadSchedule(prefs);
+  final schedule = await ref
+      .watch(prayerLocationServiceProvider)
+      .loadSchedule(prefs);
   await PrayerAlarmService.instance.syncAlarms(
     schedule: schedule,
     prefs: prefs,

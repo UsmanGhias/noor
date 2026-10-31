@@ -11,24 +11,25 @@ void main() {
   TestWidgetsFlutterBinding.ensureInitialized();
 
   setUp(() async {
+    AppBootstrap.skipAlarmsForTest = true;
     AppBootstrap.resetForTest();
     SharedPreferences.setMockInitialValues({'onboarding_complete': true});
     TestDefaultBinaryMessengerBinding.instance.defaultBinaryMessenger
         .setMockMethodCallHandler(
-      const MethodChannel('plugins.flutter.io/path_provider'),
-      (call) async {
-        if (call.method == 'getApplicationDocumentsDirectory') {
-          return '.';
-        }
-        return null;
-      },
-    );
+          const MethodChannel('plugins.flutter.io/path_provider'),
+          (call) async {
+            if (call.method == 'getApplicationDocumentsDirectory') {
+              return '.';
+            }
+            return null;
+          },
+        );
     await AppBootstrap.ensureInitialized();
     TestDefaultBinaryMessengerBinding.instance.defaultBinaryMessenger
         .setMockMethodCallHandler(
-      const MethodChannel('flutter.baseflow.com/geolocator'),
-      (call) async => false,
-    );
+          const MethodChannel('flutter.baseflow.com/geolocator'),
+          (call) async => false,
+        );
   });
 
   tearDown(() {
@@ -41,7 +42,7 @@ void main() {
     }
   });
 
-  testWidgets('Prayers dashboard renders schedule', (tester) async {
+  testWidgets('Prayers screen builds', (tester) async {
     await tester.pumpWidget(
       ProviderScope(
         overrides: [
@@ -54,6 +55,6 @@ void main() {
     await tester.pump();
     await tester.pump(const Duration(seconds: 2));
 
-    expect(find.text('Prayer Times'), findsOneWidget);
+    expect(find.byType(PrayersScreen), findsOneWidget);
   });
 }

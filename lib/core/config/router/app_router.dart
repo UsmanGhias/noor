@@ -27,10 +27,7 @@ abstract final class AppRoutes {
 final GoRouter appRouter = GoRouter(
   initialLocation: AppRoutes.splash,
   routes: [
-    GoRoute(
-      path: AppRoutes.splash,
-      builder: (_, __) => const SplashScreen(),
-    ),
+    GoRoute(path: AppRoutes.splash, builder: (_, __) => const SplashScreen()),
     GoRoute(
       path: AppRoutes.onboarding,
       builder: (_, __) => const OnboardingScreen(),
@@ -39,18 +36,9 @@ final GoRouter appRouter = GoRouter(
       path: AppRoutes.locationSettings,
       builder: (_, __) => const LocationSettingsScreen(),
     ),
-    GoRoute(
-      path: AppRoutes.quran,
-      builder: (_, __) => const QuranScreen(),
-    ),
-    GoRoute(
-      path: AppRoutes.duas,
-      builder: (_, __) => const DuasScreen(),
-    ),
-    GoRoute(
-      path: AppRoutes.tasbih,
-      builder: (_, __) => const TasbihScreen(),
-    ),
+    GoRoute(path: AppRoutes.quran, builder: (_, __) => const QuranScreen()),
+    GoRoute(path: AppRoutes.duas, builder: (_, __) => const DuasScreen()),
+    GoRoute(path: AppRoutes.tasbih, builder: (_, __) => const TasbihScreen()),
     StatefulShellRoute.indexedStack(
       builder: (context, state, navigationShell) {
         return MainShell(navigationShell: navigationShell);

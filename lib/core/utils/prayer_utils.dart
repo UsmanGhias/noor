@@ -89,7 +89,8 @@ Prayer? currentObligatoryPrayer(PrayerTimes times) {
 }
 
 Duration? timeUntilPrayer(PrayerTimes times, Prayer prayer) {
-  final target = prayer == Prayer.fajr && prayerLocalNow().isAfter(prayerLocal(times.isha))
+  final target =
+      prayer == Prayer.fajr && prayerLocalNow().isAfter(prayerLocal(times.isha))
       ? prayerLocal(times.fajrAfter)
       : obligatoryPrayerTime(times, prayer);
   final diff = target.difference(prayerLocalNow());

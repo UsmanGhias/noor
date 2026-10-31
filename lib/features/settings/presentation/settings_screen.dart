@@ -83,7 +83,9 @@ class SettingsScreen extends ConsumerWidget {
                   value: prefs.autoDetectLocation,
                   activeThumbColor: AppColors.accentGreen,
                   onChanged: (value) {
-                    ref.read(prayerPreferencesProvider.notifier).update(
+                    ref
+                        .read(prayerPreferencesProvider.notifier)
+                        .update(
                           (state) => state.copyWith(autoDetectLocation: value),
                         );
                     ref.invalidate(prayerScheduleProvider);
@@ -146,10 +148,7 @@ class _ExploreCard extends StatelessWidget {
             children: [
               Text(icon, style: const TextStyle(fontSize: 28)),
               const SizedBox(height: 8),
-              Text(
-                label,
-                style: const TextStyle(fontWeight: FontWeight.w600),
-              ),
+              Text(label, style: const TextStyle(fontWeight: FontWeight.w600)),
             ],
           ),
         ),

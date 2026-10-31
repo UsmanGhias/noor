@@ -15,7 +15,8 @@ class LocationSettingsScreen extends ConsumerStatefulWidget {
       _LocationSettingsScreenState();
 }
 
-class _LocationSettingsScreenState extends ConsumerState<LocationSettingsScreen> {
+class _LocationSettingsScreenState
+    extends ConsumerState<LocationSettingsScreen> {
   late bool _autoDetect;
   late PakistanCity _city;
   late CalculationMethodOption _method;
@@ -32,7 +33,9 @@ class _LocationSettingsScreenState extends ConsumerState<LocationSettingsScreen>
   }
 
   Future<void> _apply() async {
-    await ref.read(prayerPreferencesProvider.notifier).update(
+    await ref
+        .read(prayerPreferencesProvider.notifier)
+        .update(
           (prefs) => prefs.copyWith(
             autoDetectLocation: _autoDetect,
             manualCity: _city,
@@ -54,9 +57,7 @@ class _LocationSettingsScreenState extends ConsumerState<LocationSettingsScreen>
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: AppColors.surfaceSoft,
-      appBar: AppBar(
-        title: const Text('Location & Calculation'),
-      ),
+      appBar: AppBar(title: const Text('Location & Calculation')),
       body: ListView(
         padding: const EdgeInsets.all(16),
         children: [
@@ -84,7 +85,7 @@ class _LocationSettingsScreenState extends ConsumerState<LocationSettingsScreen>
                   ),
                   const SizedBox(height: 12),
                   DropdownButtonFormField<PakistanCity>(
-                    value: _city,
+                    initialValue: _city,
                     decoration: const InputDecoration(labelText: 'City'),
                     items: PakistanCity.values
                         .map(
@@ -117,7 +118,7 @@ class _LocationSettingsScreenState extends ConsumerState<LocationSettingsScreen>
                   ),
                   const SizedBox(height: 12),
                   DropdownButtonFormField<CalculationMethodOption>(
-                    value: _method,
+                    initialValue: _method,
                     decoration: const InputDecoration(labelText: 'Method'),
                     items: CalculationMethodOption.values
                         .map(
@@ -135,7 +136,7 @@ class _LocationSettingsScreenState extends ConsumerState<LocationSettingsScreen>
                   ),
                   const SizedBox(height: 12),
                   DropdownButtonFormField<Madhab>(
-                    value: _madhab,
+                    initialValue: _madhab,
                     decoration: const InputDecoration(labelText: 'Madhhab'),
                     items: const [
                       DropdownMenuItem(
@@ -158,10 +159,7 @@ class _LocationSettingsScreenState extends ConsumerState<LocationSettingsScreen>
             ),
           ),
           const SizedBox(height: 24),
-          FilledButton(
-            onPressed: _apply,
-            child: const Text('Apply'),
-          ),
+          FilledButton(onPressed: _apply, child: const Text('Apply')),
         ],
       ),
     );

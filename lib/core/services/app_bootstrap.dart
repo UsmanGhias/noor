@@ -8,6 +8,9 @@ import 'package:timezone/timezone.dart' as tz;
 /// One-time app initialization (storage, timezone data).
 abstract final class AppBootstrap {
   static Future<void>? _initFuture;
+
+  /// Skips notification setup, which has no platform plugin under `flutter test`.
+  static bool skipAlarmsForTest = false;
   static SharedPreferences? _preferences;
 
   static SharedPreferences get preferences {
@@ -37,7 +40,9 @@ abstract final class AppBootstrap {
     } on Object {
       tz.setLocalLocation(tz.getLocation('Asia/Karachi'));
     }
-    await PrayerAlarmService.instance.initialize();
+    if (!skipAlarmsForTest) {
+      await PrayerAlarmService.instance.initialize();
+    }
     _preferences = await SharedPreferences.getInstance();
   }
 }

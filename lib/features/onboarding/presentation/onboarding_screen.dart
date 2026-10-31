@@ -4,11 +4,10 @@ import 'package:go_router/go_router.dart';
 import 'package:intl/intl.dart';
 import 'package:noor_ul_haya/core/config/router/app_router.dart';
 import 'package:noor_ul_haya/core/providers/prayer_providers.dart';
-import 'package:noor_ul_haya/core/theme/app_colors.dart';
 import 'package:noor_ul_haya/core/services/prayer_alarm_service.dart';
-import 'package:noor_ul_haya/core/utils/prayer_utils.dart';
 import 'package:noor_ul_haya/core/services/prayer_location_service.dart';
-import 'package:adhan_dart/adhan_dart.dart';
+import 'package:noor_ul_haya/core/theme/app_colors.dart';
+import 'package:noor_ul_haya/core/utils/prayer_utils.dart';
 
 /// First-run onboarding flow.
 class OnboardingScreen extends ConsumerStatefulWidget {
@@ -26,9 +25,9 @@ class _OnboardingScreenState extends ConsumerState<OnboardingScreen> {
     if (enableNotifications) {
       await PrayerAlarmService.instance.requestPermission();
     }
-    await ref.read(prayerPreferencesProvider.notifier).update(
-          (prefs) => prefs.copyWith(onboardingComplete: true),
-        );
+    await ref
+        .read(prayerPreferencesProvider.notifier)
+        .update((prefs) => prefs.copyWith(onboardingComplete: true));
     ref.invalidate(prayerScheduleProvider);
     if (!mounted) {
       return;
@@ -85,12 +84,10 @@ class _OnboardingScreenState extends ConsumerState<OnboardingScreen> {
                     ),
                   ),
                   scheduleAsync.when(
-                    loading: () => const Center(
-                      child: CircularProgressIndicator(),
-                    ),
-                    error: (_, __) => const Center(
-                      child: Text('Loading prayer times...'),
-                    ),
+                    loading: () =>
+                        const Center(child: CircularProgressIndicator()),
+                    error: (_, __) =>
+                        const Center(child: Text('Loading prayer times...')),
                     data: (schedule) => _ReviewStep(
                       schedule: schedule,
                       onContinue: () => _controller.nextPage(
@@ -128,7 +125,7 @@ class _LocationStep extends ConsumerWidget {
           Container(
             width: 180,
             height: 180,
-            decoration: BoxDecoration(
+            decoration: const BoxDecoration(
               shape: BoxShape.circle,
               color: AppColors.accentMint,
             ),
@@ -141,25 +138,25 @@ class _LocationStep extends ConsumerWidget {
           const SizedBox(height: 32),
           Text(
             'Setting your location',
-            style: Theme.of(context).textTheme.headlineSmall?.copyWith(
-                  fontWeight: FontWeight.w800,
-                ),
+            style: Theme.of(
+              context,
+            ).textTheme.headlineSmall?.copyWith(fontWeight: FontWeight.w800),
             textAlign: TextAlign.center,
           ),
           const SizedBox(height: 12),
           Text(
             'Enable location for accurate prayer times where you are.',
-            style: Theme.of(context).textTheme.bodyLarge?.copyWith(
-                  color: AppColors.textSecondary,
-                ),
+            style: Theme.of(
+              context,
+            ).textTheme.bodyLarge?.copyWith(color: AppColors.textSecondary),
             textAlign: TextAlign.center,
           ),
           const Spacer(),
           FilledButton(
             onPressed: () async {
-              await ref.read(prayerPreferencesProvider.notifier).update(
-                    (prefs) => prefs.copyWith(autoDetectLocation: true),
-                  );
+              await ref
+                  .read(prayerPreferencesProvider.notifier)
+                  .update((prefs) => prefs.copyWith(autoDetectLocation: true));
               ref.invalidate(prayerScheduleProvider);
               onContinue();
             },
@@ -190,9 +187,9 @@ class _ReviewStep extends StatelessWidget {
         children: [
           Text(
             'Review your prayer time settings',
-            style: Theme.of(context).textTheme.headlineSmall?.copyWith(
-                  fontWeight: FontWeight.w800,
-                ),
+            style: Theme.of(
+              context,
+            ).textTheme.headlineSmall?.copyWith(fontWeight: FontWeight.w800),
           ),
           const SizedBox(height: 16),
           Card(
@@ -219,7 +216,10 @@ class _ReviewStep extends StatelessWidget {
                       final time = displayTimeForPrayer(schedule.times, prayer);
                       return Column(
                         children: [
-                          Text(prayerEmoji(prayer), style: const TextStyle(fontSize: 22)),
+                          Text(
+                            prayerEmoji(prayer),
+                            style: const TextStyle(fontSize: 22),
+                          ),
                           const SizedBox(height: 4),
                           Text(
                             prayerLabel(prayer),
@@ -243,10 +243,7 @@ class _ReviewStep extends StatelessWidget {
 }
 
 class _NotificationStep extends StatelessWidget {
-  const _NotificationStep({
-    required this.onEnable,
-    required this.onSkip,
-  });
+  const _NotificationStep({required this.onEnable, required this.onSkip});
 
   final VoidCallback onEnable;
   final VoidCallback onSkip;
@@ -273,17 +270,17 @@ class _NotificationStep extends StatelessWidget {
           const SizedBox(height: 32),
           Text(
             'Stay on time with Adhan reminders',
-            style: Theme.of(context).textTheme.headlineSmall?.copyWith(
-                  fontWeight: FontWeight.w800,
-                ),
+            style: Theme.of(
+              context,
+            ).textTheme.headlineSmall?.copyWith(fontWeight: FontWeight.w800),
             textAlign: TextAlign.center,
           ),
           const SizedBox(height: 12),
           Text(
             'Get gentle reminders for prayer, Quran reading, and daily spiritual habits.',
-            style: Theme.of(context).textTheme.bodyLarge?.copyWith(
-                  color: AppColors.textSecondary,
-                ),
+            style: Theme.of(
+              context,
+            ).textTheme.bodyLarge?.copyWith(color: AppColors.textSecondary),
             textAlign: TextAlign.center,
           ),
           const Spacer(),

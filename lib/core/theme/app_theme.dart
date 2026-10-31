@@ -65,10 +65,7 @@ abstract final class AppTheme {
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(16),
           ),
-          textStyle: const TextStyle(
-            fontWeight: FontWeight.w600,
-            fontSize: 16,
-          ),
+          textStyle: const TextStyle(fontWeight: FontWeight.w600, fontSize: 16),
         ),
       ),
       inputDecorationTheme: InputDecorationTheme(
@@ -82,7 +79,10 @@ abstract final class AppTheme {
           borderRadius: BorderRadius.circular(14),
           borderSide: const BorderSide(color: AppColors.primary),
         ),
-        contentPadding: const EdgeInsets.symmetric(horizontal: 16, vertical: 14),
+        contentPadding: const EdgeInsets.symmetric(
+          horizontal: 16,
+          vertical: 14,
+        ),
       ),
     );
   }

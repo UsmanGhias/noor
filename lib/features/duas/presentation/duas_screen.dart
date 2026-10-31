@@ -38,10 +38,7 @@ class DuasScreen extends StatelessWidget {
                     Text(
                       dua.arabic,
                       textAlign: TextAlign.right,
-                      style: const TextStyle(
-                        fontSize: 20,
-                        height: 1.6,
-                      ),
+                      style: const TextStyle(fontSize: 20, height: 1.6),
                     ),
                     const SizedBox(height: 6),
                     Text(
@@ -76,9 +73,9 @@ class DuasScreen extends StatelessWidget {
             children: [
               Text(
                 dua.title,
-                style: Theme.of(context).textTheme.titleLarge?.copyWith(
-                      fontWeight: FontWeight.w700,
-                    ),
+                style: Theme.of(
+                  context,
+                ).textTheme.titleLarge?.copyWith(fontWeight: FontWeight.w700),
               ),
               const SizedBox(height: 16),
               Text(
@@ -101,9 +98,9 @@ class DuasScreen extends StatelessWidget {
                 onPressed: () {
                   Clipboard.setData(ClipboardData(text: dua.arabic));
                   Navigator.pop(context);
-                  ScaffoldMessenger.of(context).showSnackBar(
-                    const SnackBar(content: Text('Dua copied')),
-                  );
+                  ScaffoldMessenger.of(
+                    context,
+                  ).showSnackBar(const SnackBar(content: Text('Dua copied')));
                 },
                 icon: const Icon(Icons.copy),
                 label: const Text('Copy Arabic'),
